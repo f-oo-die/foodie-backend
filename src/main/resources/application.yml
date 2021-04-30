@@ -1,0 +1,18 @@
+server:
+  port: ${APPLICATION_PORT}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/foodie
+    username: ${APPLICATION_DB_USER}
+    password: ${APPLICATION_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    openInView: false
+    show_sql: true
+    generate-ddl: true
+  data:
+    jpa:
+      repositories.enabled: true
+
