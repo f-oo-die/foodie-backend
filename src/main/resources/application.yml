@@ -1,11 +1,11 @@
 server:
-  port: ${APPLICATION_PORT}
+  port: ${APPLICATION_PORT:8083}
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/foodie
-    username: ${APPLICATION_DB_USER}
-    password: ${APPLICATION_DB_PASSWORD}
+    url: jdbc:postgresql://${APPLICATION_DB_URL:localhost}:${APPLICATION_DB_PORT:5432}/${APPLICATION_DB_NAME:foodie}
+    username: ${APPLICATION_DB_USER:postgres}
+    password: ${APPLICATION_DB_PASSWORD:admin}
   jpa:
     hibernate:
       ddl-auto: update
