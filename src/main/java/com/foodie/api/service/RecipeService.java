@@ -1,52 +1,68 @@
 package com.foodie.api.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import com.foodie.api.model.Recipe;
+import com.foodie.api.model.dto.RecipeDto;
+import com.foodie.api.model.entities.Recipe;
+import com.foodie.api.repository.RecipeRepository;
 
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class RecipeService {
-  private ArrayList<Recipe> recipes = new ArrayList<>();
 
-  public RecipeService(){
-    recipes.add(new Recipe(0L, "Chicken salad", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 200, 0));
-    recipes.add(new Recipe(1L, "Tuna salad", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 100, 1));
-    recipes.add(new Recipe(2L, "Spicy salad", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 300, 2));
+  private final RecipeRepository recipeRepo;
+
+  public Collection<RecipeDto> getAll(){
+    return recipeRepo.findAll().stream()
+    .map(this::toPayload)
+    .collect(Collectors.toList());
   }
 
-  public List<Recipe> getList(){
-    return this.recipes;
+  public RecipeDto getRecipe(Long id){
+    Optional<Recipe> recipe = recipeRepo.findById(id);
+    if (recipe.isPresent()){
+      return toPayload(recipe.get());
+    }
+    throw new RuntimeException("Recipe with id " + id + " does not exist!");
   }
 
-  public Recipe getRecipe(Long id){
-    if (id == null) return null;
-    
-    for (Recipe recipe : recipes) 
-      if (id.equals(recipe.getId())) return recipe;
-
-    return null;
+  public RecipeDto save(RecipeDto payload){
+    Recipe recipe = fromPayload(payload);
+    recipe = recipeRepo.save(recipe);
+    return toPayload(recipe);
   }
 
-  public Recipe save(Recipe recipe){
-    recipes.add(recipe);
+  public RecipeDto update(Long id, RecipeDto payload){
+    getRecipe(id);
+
+    Recipe recipe = fromPayload(payload);
+    recipe.setId(id);
+    recipe = recipeRepo.save(recipe);
+    return toPayload(recipe);
+  }
+
+  private Recipe fromPayload(RecipeDto payload) {
+    Recipe recipe = new Recipe();
+    recipe.setTitle(payload.getTitle());
+    recipe.setPreparation(payload.getPreparation());
+    recipe.setNumOfCalories(payload.getNumOfCalories());
+    recipe.setTypeOfMeal(payload.getTypeOfMeal());
     return recipe;
   }
 
-  public Recipe update(Long id, Recipe recipe){
-    if (id == null) return null;
-
-    for (Recipe existingRecipe : recipes) {
-      if (id.equals(existingRecipe.getId())) {
-        existingRecipe.setTitle(recipe.getTitle());
-        existingRecipe.setPreparation(recipe.getPreparation());
-        existingRecipe.setNumOfCalories(recipe.getNumOfCalories());
-        existingRecipe.setTypeOfMeal(recipe.getTypeOfMeal());
-        return existingRecipe;
-      }
-    }
-    return null;
+  private RecipeDto toPayload(Recipe recipe) {
+    RecipeDto payload = new RecipeDto();
+    payload.setId(recipe.getId());
+    payload.setTitle(recipe.getTitle());
+    payload.setPreparation(recipe.getPreparation());
+    payload.setNumOfCalories(recipe.getNumOfCalories());
+    payload.setTypeOfMeal(recipe.getTypeOfMeal());
+    return payload;
   }
 }
