@@ -1,13 +1,15 @@
-package com.foodie.api.model;
+package com.foodie.api.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class Recipe {
+@NoArgsConstructor
+public class RecipeDto {
   private Long id;
   private String title;
   private String preparation;
