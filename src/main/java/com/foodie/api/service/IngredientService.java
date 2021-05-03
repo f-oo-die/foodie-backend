@@ -49,21 +49,21 @@ public class IngredientService {
 
   private Ingredient fromPayload(IngredientDto payload) {
     Ingredient ingredient = new Ingredient();
-    ingredient.setingredientName(payload.getingredientName());
-    ingredient.setcaloricValue(payload.getcaloricValue());
-    ingredient.setnutritionalValue(payload.getnutritionalValue());
-    ingredient.setallNatural(payload.getallNatural());
-    ingredient.setadditives(payload.getadditives());
+    ingredient.setIngredientName(payload.getIngredientName());
+    ingredient.setCaloricValue(payload.getCaloricValue());
+    ingredient.setNutritionalValue(payload.getNutritionalValue());
+    ingredient.setAllNatural(payload.getAllNatural());
+    ingredient.setAdditives(payload.getAdditives());
     return ingredient;
   }
   private IngredientDto toPayload(Ingredient ingredient) {
     IngredientDto payload = new IngredientDto();
     payload.setId(ingredient.getId());
-    payload.setingredientName(ingredient.getingredientName());
-    payload.setcaloricValue(ingredient.getcaloricValue());
-    payload.setnutritionalValue(ingredient.getnutritionalValue());
-    payload.setallNatural(ingredient.getallNatural());
-    payload.setadditives(ingredient.getadditives());
+    payload.setIngredientName(ingredient.getIngredientName());
+    payload.setCaloricValue(ingredient.getCaloricValue());
+    payload.setNutritionalValue(ingredient.getNutritionalValue());
+    payload.setAllNatural(ingredient.getAllNatural());
+    payload.setAdditives(ingredient.getAdditives());
     return payload;
   }
 }

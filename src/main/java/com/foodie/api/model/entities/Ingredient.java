@@ -28,16 +28,16 @@ public class Ingredient implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "ingredientName", nullable = false, unique = true)
-  private String ingredientName;
-  @Column(name = "caloricValue", nullable = false)
-  private Double caloricValue;
-  @Column(name = "nutritionalValue", nullable = false)
-  private Double nutritionalValue;
-  @Column(name = "allNatural", nullable = false)
-  private Boolean allNatural;
-  @Column(name = "additives")
-  private String additives;
+  @Column(name = "IngredientName", nullable = false, unique = true)
+  private String IngredientName;
+  @Column(name = "CaloricValue", nullable = false)
+  private Double CaloricValue;
+  @Column(name = "NutritionalValue", nullable = false)
+  private Double NutritionalValue;
+  @Column(name = "AllNatural", nullable = false)
+  private Boolean AllNatural;
+  @Column(name = "Additives")
+  private String Additives;
 
   
 }
