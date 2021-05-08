@@ -18,9 +18,6 @@ public class ShoppingList implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
