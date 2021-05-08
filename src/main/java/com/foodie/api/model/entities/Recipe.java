@@ -36,4 +36,22 @@ public class Recipe implements Serializable {
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<IngredientList> ingredientLists;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<FavoriteRecipe> favoriteRecipes;
+
+  @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> breakfastSet;
+
+  @OneToMany(mappedBy = "lunch", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> lunchSet;
+
+  @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> dinnerSet;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<Counter> recipeCount;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<PreventionList> preventionList;
 }

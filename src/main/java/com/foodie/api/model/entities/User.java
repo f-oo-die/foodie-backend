@@ -45,4 +45,13 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<NutritionIssueList> nutritionIssueLists;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<FavoriteRecipe> favoriteRecipes;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<DailyMealPlan> dailyMealPlans;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Counter> recipeCount;
 }

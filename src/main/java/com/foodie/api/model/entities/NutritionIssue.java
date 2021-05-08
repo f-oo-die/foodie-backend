@@ -23,4 +23,7 @@ public class NutritionIssue implements Serializable {
 
     @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
     private Set<NutritionIssueList> nutritionIssueLists;
+
+    @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
+    private Set<PreventionList> preventionList;
 }
