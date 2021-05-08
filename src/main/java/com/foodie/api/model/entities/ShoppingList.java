@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "shopping_list")
+@Table(name = "shopping_lists")
 @Getter
 @Setter
 @NoArgsConstructor
