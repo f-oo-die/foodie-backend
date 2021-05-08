@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -38,4 +39,10 @@ public class User implements Serializable {
 
     @Column(name = "gender")
     private String gender;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<ShoppingList> shoppingLists;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<NutritionIssueList> nutritionIssueLists;
 }
