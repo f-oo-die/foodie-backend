@@ -24,23 +24,17 @@ public class Ingredient implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "IngredientName", nullable = false, unique = true)
-  private String IngredientName;
+  @Column(name = "ingredient_name", nullable = false, unique = true)
+  private String ingredientName;
 
-  @Column(name = "CaloricValue", nullable = false)
-  private Double CaloricValue;
+  @Column(name = "caloric_value", nullable = false)
+  private Double caloricValue;
 
-  @Column(name = "NutritionalValue", nullable = false)
-  private Double NutritionalValue;
-
-  @Column(name = "AllNatural", nullable = false)
-  private Boolean AllNatural;
-
-  @Column(name = "Additives")
-  private String Additives;
+  @Column(name = "nutritional_value", nullable = false)
+  private Double nutritionalValue;
 
   @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
-  private Set<IngredientList> ingredientLists;
+  private Set<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
   private Set<ShoppingIngredient> shoppingIngredients;
