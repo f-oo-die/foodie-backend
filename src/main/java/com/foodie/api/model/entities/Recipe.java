@@ -35,7 +35,7 @@ public class Recipe implements Serializable {
   private Integer typeOfMeal;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<IngredientList> ingredientLists;
+  private Set<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<FavoriteRecipe> favoriteRecipes;

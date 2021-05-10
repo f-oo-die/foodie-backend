@@ -52,8 +52,6 @@ public class IngredientService {
     ingredient.setIngredientName(payload.getIngredientName());
     ingredient.setCaloricValue(payload.getCaloricValue());
     ingredient.setNutritionalValue(payload.getNutritionalValue());
-    ingredient.setAllNatural(payload.getAllNatural());
-    ingredient.setAdditives(payload.getAdditives());
     return ingredient;
   }
   private IngredientDto toPayload(Ingredient ingredient) {
@@ -62,8 +60,6 @@ public class IngredientService {
     payload.setIngredientName(ingredient.getIngredientName());
     payload.setCaloricValue(ingredient.getCaloricValue());
     payload.setNutritionalValue(ingredient.getNutritionalValue());
-    payload.setAllNatural(ingredient.getAllNatural());
-    payload.setAdditives(ingredient.getAdditives());
     return payload;
   }
 }

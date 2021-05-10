@@ -18,7 +18,10 @@ public class IngredientList implements Serializable {
     private Long id;
 
     @Column(name = "amount", nullable = false)
-    private Integer amount;
+    private Double amount;
+
+    @Column(name = "amount_label", nullable = false)
+    private String amountLabel;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id")

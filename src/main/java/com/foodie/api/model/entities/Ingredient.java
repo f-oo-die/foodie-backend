@@ -33,14 +33,8 @@ public class Ingredient implements Serializable {
   @Column(name = "NutritionalValue", nullable = false)
   private Double NutritionalValue;
 
-  @Column(name = "AllNatural", nullable = false)
-  private Boolean AllNatural;
-
-  @Column(name = "Additives")
-  private String Additives;
-
   @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
-  private Set<IngredientList> ingredientLists;
+  private Set<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
   private Set<ShoppingIngredient> shoppingIngredients;
