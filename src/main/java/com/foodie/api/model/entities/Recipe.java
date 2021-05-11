@@ -1,6 +1,7 @@
 package com.foodie.api.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class Recipe implements Serializable {
   private Integer typeOfMeal;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<IngredientList> ingredientList;
+  private List<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<FavoriteRecipe> favoriteRecipes;
