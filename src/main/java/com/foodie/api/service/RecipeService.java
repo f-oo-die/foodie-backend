@@ -1,9 +1,11 @@
 package com.foodie.api.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.foodie.api.model.dto.IngredientListDto;
 import com.foodie.api.model.dto.RecipeDto;
 import com.foodie.api.model.entities.Recipe;
 import com.foodie.api.repository.RecipeRepository;
@@ -17,10 +19,11 @@ import lombok.RequiredArgsConstructor;
 public class RecipeService {
 
   private final RecipeRepository recipeRepo;
+  private final IngredientListService ingredientListService;
 
   public Collection<RecipeDto> getAll(){
     return recipeRepo.findAll().stream()
-    .map(this::toPayload)
+    .map(t -> toPayload(t))
     .collect(Collectors.toList());
   }
 
@@ -63,6 +66,11 @@ public class RecipeService {
     payload.setPreparation(recipe.getPreparation());
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
+    payload.setIngredientList(getList(recipe));
     return payload;
+  }
+
+  private List<IngredientListDto> getList(Recipe recipe){
+    return ingredientListService.getIngredientListForRecipe(recipe.getId());
   }
 }
