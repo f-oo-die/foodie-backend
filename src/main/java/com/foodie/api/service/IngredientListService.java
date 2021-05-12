@@ -24,7 +24,7 @@ public class IngredientListService {
     .collect(Collectors.toList());
   }
   
-  private IngredientListDto toPayload(IngredientList ingredientList) {
+  public static IngredientListDto toPayload(IngredientList ingredientList) {
     IngredientListDto payload = new IngredientListDto();
     payload.setId(ingredientList.getId());
     payload.setAmount(ingredientList.getAmount());
