@@ -1,5 +1,7 @@
 package com.foodie.api.model.dto;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,5 @@ public class IngredientDto{
     private String ingredientName;
     private Double caloricValue;
     private Double nutritionalValue;
-    private Boolean allNatural;
-    private String additives;
+    private Set<IngredientListDto> ingredientList;
 }

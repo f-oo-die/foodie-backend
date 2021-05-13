@@ -20,7 +20,7 @@ public class IngredientService {
 
   public Collection<IngredientDto> getAll(){
     return ingredientRepo.findAll().stream()
-    .map(this::toPayload)
+    .map(t -> toPayload(t))
     .collect(Collectors.toList());
   }
 
@@ -52,18 +52,15 @@ public class IngredientService {
     ingredient.setIngredientName(payload.getIngredientName());
     ingredient.setCaloricValue(payload.getCaloricValue());
     ingredient.setNutritionalValue(payload.getNutritionalValue());
-    ingredient.setAllNatural(payload.getAllNatural());
-    ingredient.setAdditives(payload.getAdditives());
     return ingredient;
   }
-  private IngredientDto toPayload(Ingredient ingredient) {
+
+  public static IngredientDto toPayload(Ingredient ingredient) {
     IngredientDto payload = new IngredientDto();
     payload.setId(ingredient.getId());
     payload.setIngredientName(ingredient.getIngredientName());
     payload.setCaloricValue(ingredient.getCaloricValue());
     payload.setNutritionalValue(ingredient.getNutritionalValue());
-    payload.setAllNatural(ingredient.getAllNatural());
-    payload.setAdditives(ingredient.getAdditives());
     return payload;
   }
 }
