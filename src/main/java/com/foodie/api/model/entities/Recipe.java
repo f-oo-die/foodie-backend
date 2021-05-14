@@ -1,13 +1,10 @@
 package com.foodie.api.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,11 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recipe implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class Recipe extends EntityWithLongId{
 
   @Column(name = "title", nullable = false, unique = true)
   private String title;
@@ -37,4 +30,25 @@ public class Recipe implements Serializable {
 
   @Column(name = "type_of_meal", nullable = false)
   private Integer typeOfMeal;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+  private List<IngredientList> ingredientList;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<FavoriteRecipe> favoriteRecipes;
+
+  @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> breakfastSet;
+
+  @OneToMany(mappedBy = "lunch", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> lunchSet;
+
+  @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
+  private Set<DailyMealPlan> dinnerSet;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<Counter> recipeCount;
+
+  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+  private Set<PreventionList> preventionList;
 }
