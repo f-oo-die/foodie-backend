@@ -12,10 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NutritionIssueList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class NutritionIssueList extends EntityWithLongId{
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -23,11 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PreventionList implements Serializable {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class PreventionList extends EntityWithLongId{
 
   @ManyToOne
   @JoinColumn(name = "recipe_id", referencedColumnName = "id")
