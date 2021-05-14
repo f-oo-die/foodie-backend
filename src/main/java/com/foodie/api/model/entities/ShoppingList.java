@@ -13,10 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShoppingList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class ShoppingList extends EntityWithLongId{
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

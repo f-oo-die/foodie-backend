@@ -23,11 +23,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FavoriteRecipe implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class FavoriteRecipe extends EntityWithLongId{
+
 
   @ManyToOne
   @JoinColumn(name = "recipe_id", referencedColumnName = "id")

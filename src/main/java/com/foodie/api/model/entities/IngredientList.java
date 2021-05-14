@@ -12,10 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class IngredientList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class IngredientList extends EntityWithLongId {
 
     @Column(name = "amount", nullable = false)
     private Double amount;

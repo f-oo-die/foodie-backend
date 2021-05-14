@@ -13,10 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NutritionIssue implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class NutritionIssue extends EntityWithLongId{
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -24,11 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DailyMealPlan implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class DailyMealPlan extends EntityWithLongId {
 
   @Column(name = "date_id", nullable = false)
   private String dateId;

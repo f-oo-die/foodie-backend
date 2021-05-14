@@ -13,11 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class User extends EntityWithLongId{
 
     @Column(name = "firstName", nullable = false)
     private String firstName;

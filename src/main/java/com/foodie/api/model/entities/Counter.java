@@ -25,12 +25,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Counter implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  
+public class Counter extends EntityWithLongId {
+
   @ManyToOne
   @JoinColumn(name = "recipe_id", referencedColumnName = "id")
   private Recipe recipe;

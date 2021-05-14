@@ -17,11 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recipe implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class Recipe extends EntityWithLongId{
 
   @Column(name = "title", nullable = false, unique = true)
   private String title;
