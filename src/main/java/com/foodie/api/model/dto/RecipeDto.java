@@ -1,6 +1,6 @@
 package com.foodie.api.model.dto;
 
-import java.util.Set;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +17,5 @@ public class RecipeDto {
   private String preparation;
   private Integer numOfCalories;
   private Integer typeOfMeal;
-  private Set<IngredientListDto> ingredientList;
-  private Set<FavoriteRecipeDto> favoriteRecipes;
-  private Set<DailyMealPlanDto> breakfastSet;
-  private Set<DailyMealPlanDto> lunchSet;
-  private Set<DailyMealPlanDto> dinnerSet;
-  private Set<CounterDto> recipeCount;
-  private Set<PreventionListDto> preventionList;
+  private List<IngredientListDto> ingredientList;
 }

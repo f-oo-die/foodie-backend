@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -13,10 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NutritionIssue implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class NutritionIssue extends EntityWithLongId{
 
     @Column(name = "name", nullable = false)
     private String name;

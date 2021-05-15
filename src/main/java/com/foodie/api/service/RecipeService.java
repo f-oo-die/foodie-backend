@@ -20,7 +20,7 @@ public class RecipeService {
 
   public Collection<RecipeDto> getAll(){
     return recipeRepo.findAll().stream()
-    .map(this::toPayload)
+    .map(t -> toPayload(t))
     .collect(Collectors.toList());
   }
 
@@ -63,6 +63,9 @@ public class RecipeService {
     payload.setPreparation(recipe.getPreparation());
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
+    payload.setIngredientList(recipe.getIngredientList().stream()
+      .map(t -> IngredientListService.toPayload(t))
+      .collect(Collectors.toList()));
     return payload;
   }
 }

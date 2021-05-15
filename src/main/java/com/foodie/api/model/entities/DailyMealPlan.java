@@ -1,12 +1,7 @@
 package com.foodie.api.model.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -24,11 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DailyMealPlan implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class DailyMealPlan extends EntityWithLongId {
 
   @Column(name = "date_id", nullable = false)
   private String dateId;

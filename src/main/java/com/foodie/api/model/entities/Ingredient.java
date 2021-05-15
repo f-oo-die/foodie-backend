@@ -1,6 +1,5 @@
 package com.foodie.api.model.entities;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,11 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ingredient implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class Ingredient extends EntityWithLongId {
 
   @Column(name = "ingredient_name", nullable = false, unique = true)
   private String ingredientName;

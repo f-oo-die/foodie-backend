@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class IngredientListDto {
   private Long id;
-  private Integer amount;
+  private Double amount;
+  private String amountLabel;
   private IngredientDto ingredient;
   private RecipeDto recipe;
 }
