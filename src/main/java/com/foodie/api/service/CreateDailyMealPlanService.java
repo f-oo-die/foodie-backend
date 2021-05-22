@@ -26,7 +26,7 @@ public class CreateDailyMealPlanService {
 
     UserDto user = userService.getUser(userId);
 
-    double recommendedCaloriesPerMeal = getRecommendedCalories(user);
+    double recommendedCaloriesPerMeal = getRecommendedCaloriesPerMeal(user);
     Integer calorieStatus = getRecommendedCalorieStatus(recommendedCaloriesPerMeal);
     List<RecipeDto> breakfastList = getRecipesByTypeAndStatus(0, calorieStatus);
     List<RecipeDto> lunchList = getRecipesByTypeAndStatus(1, calorieStatus);
@@ -56,7 +56,7 @@ public class CreateDailyMealPlanService {
     return 2;
   }
 
-  private double getRecommendedCalories(UserDto user) {
+  private double getRecommendedCaloriesPerMeal(UserDto user) {
     return (user.getWeight() / user.getHeight()) / 3;
   }
 
