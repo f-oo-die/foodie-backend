@@ -23,7 +23,7 @@ public class IngredientList extends EntityWithLongId {
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id")
     private Ingredient ingredient;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private Recipe recipe;
 }

@@ -32,7 +32,6 @@ public class IngredientListService {
   
   public static IngredientList fromPayload(IngredientListDto payload) {
     IngredientList ingredientList = new IngredientList();
-    ingredientList.setId(payload.getId());
     ingredientList.setAmount(payload.getAmount());
     ingredientList.setAmountLabel(payload.getAmountLabel());
     ingredientList.setIngredient(IngredientService.fromPayload(payload.getIngredient()));
