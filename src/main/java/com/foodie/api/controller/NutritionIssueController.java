@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/nutrition")
+@RequestMapping("/nutrition-issues")
 @RequiredArgsConstructor
 public class NutritionIssueController {
 
