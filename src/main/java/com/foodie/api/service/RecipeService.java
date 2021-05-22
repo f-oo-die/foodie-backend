@@ -47,7 +47,7 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
-  private Recipe fromPayload(RecipeDto payload) {
+  public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
     recipe.setTitle(payload.getTitle());
     recipe.setPreparation(payload.getPreparation());
@@ -56,7 +56,7 @@ public class RecipeService {
     return recipe;
   }
 
-  private RecipeDto toPayload(Recipe recipe) {
+  public static RecipeDto toPayload(Recipe recipe) {
     RecipeDto payload = new RecipeDto();
     payload.setId(recipe.getId());
     payload.setTitle(recipe.getTitle());
