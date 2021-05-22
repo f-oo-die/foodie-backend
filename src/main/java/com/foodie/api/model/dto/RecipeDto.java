@@ -18,6 +18,8 @@ public class RecipeDto {
   private String preparation;
   private Integer numOfCalories;
   private Integer typeOfMeal;
+  private Integer calorieStatus;
+  private CounterDto recipeCount;
   private List<IngredientListDto> ingredientList;
   private Set<DailyMealPlanDto> dailyMealPlan;
 }
