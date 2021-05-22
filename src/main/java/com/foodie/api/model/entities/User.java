@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -52,6 +53,6 @@ public class User extends EntityWithLongId{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<DailyMealPlan> dailyMealPlans;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Counter> recipeCount;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Counter recipeCount;
 }

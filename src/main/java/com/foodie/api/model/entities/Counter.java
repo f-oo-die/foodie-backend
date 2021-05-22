@@ -3,7 +3,7 @@ package com.foodie.api.model.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -22,14 +22,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Counter extends EntityWithLongId {
 
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "recipe_id", referencedColumnName = "id")
   private Recipe recipe;
 
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
   @Column(name = "count", nullable = false)
-  private Integer count;
+  private Integer count = 0;
 }

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +35,9 @@ public class Recipe extends EntityWithLongId{
   @Column(name = "type_of_meal", nullable = false)
   private Integer typeOfMeal;
 
+  @Column(name = "calorie_status", nullable = false)
+  private Integer calorieStatus;
+
   @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
   private List<IngredientList> ingredientList;
 
@@ -49,8 +53,8 @@ public class Recipe extends EntityWithLongId{
   @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
   private Set<DailyMealPlan> dinnerSet;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<Counter> recipeCount;
+  @OneToOne(mappedBy = "recipe", fetch = FetchType.EAGER)
+  private Counter recipeCount;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<PreventionList> preventionList;
