@@ -1,19 +1,25 @@
 package com.foodie.api.model.entities;
 
-import javassist.Loader;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,11 +27,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User  implements UserDetails, Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class User extends EntityWithLongId implements UserDetails {
 
     @Column(name = "firstName", nullable = false)
     private String firstName;
