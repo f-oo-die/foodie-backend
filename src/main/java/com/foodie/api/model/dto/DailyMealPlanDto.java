@@ -1,14 +1,11 @@
 package com.foodie.api.model.dto;
 
+import java.time.Instant;
 
-
-import com.foodie.api.model.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-
 
 @Getter
 @Setter
@@ -16,10 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DailyMealPlanDto {
     private long id;
-    private String dateId;
+    private Instant dateId;
     private RecipeDto breakfast;
     private RecipeDto lunch;
     private RecipeDto dinner;
-    private User userId;
+    private UserDto userId;
     private Integer rating;
 }
