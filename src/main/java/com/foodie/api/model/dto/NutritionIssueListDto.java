@@ -13,4 +13,7 @@ public class NutritionIssueListDto {
   private Long id;
   private UserDto user;
   private NutritionIssueDto nutritionIssue;
+
+  // todo: uncomment the line below when we create User crud . . .
+  // private UserDto user;
 }
