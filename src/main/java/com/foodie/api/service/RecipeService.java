@@ -5,7 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.RecipeDto;
+import com.foodie.api.model.entities.IngredientList;
 import com.foodie.api.model.entities.Recipe;
+import com.foodie.api.repository.IngredientListRepository;
 import com.foodie.api.repository.RecipeRepository;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class RecipeService {
 
   private final RecipeRepository recipeRepo;
+  private final IngredientListRepository ingredientListRepository;
 
   public Collection<RecipeDto> getAll(){
     return recipeRepo.findAll().stream()
@@ -35,6 +38,10 @@ public class RecipeService {
   public RecipeDto save(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
     recipe = recipeRepo.save(recipe);
+    for (IngredientList ingredientList : recipe.getIngredientList()) {
+      ingredientList.setRecipe(recipe);
+      ingredientListRepository.save(ingredientList);
+    }
     return toPayload(recipe);
   }
 
@@ -47,16 +54,22 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
-  private Recipe fromPayload(RecipeDto payload) {
+  public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
     recipe.setTitle(payload.getTitle());
     recipe.setPreparation(payload.getPreparation());
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
+    recipe.setIngredientList(
+      payload.getIngredientList()
+      .stream()
+      .map(t -> IngredientListService.fromPayload(t))
+      .collect(Collectors.toList())
+    );
     return recipe;
   }
 
-  private RecipeDto toPayload(Recipe recipe) {
+  public static RecipeDto toPayload(Recipe recipe) {
     RecipeDto payload = new RecipeDto();
     payload.setId(recipe.getId());
     payload.setTitle(recipe.getTitle());
