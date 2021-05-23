@@ -1,4 +1,4 @@
-package com.foodie.api.controller;
+package com.foodie.api.controller.admin;
 
 import java.util.Collection;
 
@@ -9,15 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/nutrition-issues")
+@RequestMapping("/admin/nutrition-issues")
 @RequiredArgsConstructor
-public class NutritionIssueController {
+public class NutritionIssueAdminController {
 
     private final NutritionIssueService service;
 
@@ -32,4 +35,20 @@ public class NutritionIssueController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @PostMapping
+    public ResponseEntity<NutritionIssueDto> save(
+            @RequestBody NutritionIssueDto nutritionIssue){
+        return ResponseEntity.status(HttpStatus.OK).body(service.save(nutritionIssue));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NutritionIssueDto> update(
+            @PathVariable Long id,
+            @RequestBody NutritionIssueDto nutritionIssue
+    ){
+        NutritionIssueDto result = service.update(id, nutritionIssue);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
 }
