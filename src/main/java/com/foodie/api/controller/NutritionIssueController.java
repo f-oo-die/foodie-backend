@@ -1,18 +1,21 @@
 package com.foodie.api.controller;
 
-import com.foodie.api.model.dto.IngredientDto;
+import java.util.Collection;
+
 import com.foodie.api.model.dto.NutritionIssueDto;
-import com.foodie.api.model.dto.RecipeDto;
-import com.foodie.api.model.entities.NutritionIssue;
 import com.foodie.api.service.NutritionIssueService;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/nutrition-issues")
