@@ -47,7 +47,7 @@ public class IngredientService {
     return toPayload(ingredient);
   }
 
-  private Ingredient fromPayload(IngredientDto payload) {
+  public static Ingredient fromPayload(IngredientDto payload) {
     Ingredient ingredient = new Ingredient();
     ingredient.setIngredientName(payload.getIngredientName());
     ingredient.setCaloricValue(payload.getCaloricValue());
