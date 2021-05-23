@@ -1,7 +1,5 @@
 package com.foodie.api.model.dto;
 
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NutritionIssueDto {
+public class CounterDto {
   private Long id;
-  private String name;
-  private Set<NutritionIssueListDto> nutritionIssueLists;
-  private Set<PreventionListDto> preventionList;
+  private RecipeDto recipe;
+  private UserDto user;
+  private Integer count;
 }

@@ -1,8 +1,10 @@
 package com.foodie.api.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,8 +36,8 @@ public class Recipe extends EntityWithLongId{
   @Column(name = "type_of_meal", nullable = false)
   private Integer typeOfMeal;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
-  private List<IngredientList> ingredientList;
+  @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+  private List<IngredientList> ingredientList = new ArrayList<>();
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<FavoriteRecipe> favoriteRecipes;
