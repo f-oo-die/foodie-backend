@@ -1,4 +1,4 @@
-package com.foodie.api.controller;
+package com.foodie.api.controller.admin;
 
 import java.util.Collection;
 
@@ -9,15 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/admin/recipes")
 @RequiredArgsConstructor
-public class RecipeController {
+public class RecipeAdminController {
 
   private final RecipeService service;
 
@@ -33,6 +36,25 @@ public class RecipeController {
     @PathVariable Long id
   ){
     RecipeDto result = service.getRecipe(id);
+
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+  @PostMapping
+  public ResponseEntity<RecipeDto> save(
+    @RequestBody RecipeDto recipe
+  ){
+    RecipeDto result = service.save(recipe);
+
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<RecipeDto> update(
+    @PathVariable Long id,
+    @RequestBody RecipeDto recipe
+  ){
+    RecipeDto result = service.update(id, recipe);
 
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
