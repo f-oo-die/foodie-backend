@@ -15,5 +15,5 @@ public class NutritionIssueDto {
   private Long id;
   private String name;
   private Set<NutritionIssueListDto> nutritionIssueLists;
-  private Set<PreventionListDto> preventionList;
+  private Set<RecipeDto> recipes;
 }
