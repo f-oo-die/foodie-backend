@@ -2,9 +2,11 @@ package com.foodie.api.model.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,6 +27,6 @@ public class NutritionIssue extends EntityWithLongId{
     @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
     private Set<NutritionIssueList> nutritionIssueLists;
 
-    @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
-    private Set<PreventionList> preventionList;
+    @ManyToMany(mappedBy = "nutritionIssues", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Recipe> recipes;
 }

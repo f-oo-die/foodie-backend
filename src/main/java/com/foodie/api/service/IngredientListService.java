@@ -1,6 +1,6 @@
 package com.foodie.api.service;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.IngredientListDto;
@@ -17,11 +17,11 @@ public class IngredientListService {
 
   private final IngredientListRepository ingredientListRepo;
 
-  public List<IngredientListDto> getIngredientListForRecipe(Long recipeId){
-    List<IngredientList> ingredientList = ingredientListRepo.findIngredientsOfRecipe(recipeId);
+  public Set<IngredientListDto> getIngredientListForRecipe(Long recipeId){
+    Set<IngredientList> ingredientList = ingredientListRepo.findIngredientsOfRecipe(recipeId);
     return ingredientList.stream()
     .map(t -> toPayload(t))
-    .collect(Collectors.toList());
+    .collect(Collectors.toSet());
   }
 
   public IngredientListDto save(IngredientListDto payload){

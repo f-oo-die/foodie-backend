@@ -5,12 +5,15 @@ import com.foodie.api.model.entities.NutritionIssue;
 import com.foodie.api.repository.NutritionIssueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
+@javax.transaction.Transactional
 @RequiredArgsConstructor
 public class NutritionIssueService {
 
@@ -18,7 +21,7 @@ public class NutritionIssueService {
 
     public Collection<NutritionIssueDto> getAll(){
         return nutritionIssueRepository.findAll().stream()
-                .map(this::toPayload)
+                .map(t -> toPayload(t))
                 .collect(Collectors.toList());
     }
 
@@ -46,13 +49,14 @@ public class NutritionIssueService {
     }
 
 
-    private NutritionIssue fromPayload(NutritionIssueDto payload) {
+    public static NutritionIssue fromPayload(NutritionIssueDto payload) {
         NutritionIssue nutritionIssue = new NutritionIssue();
+        // nutritionIssue.setId(payload.getId());
         nutritionIssue.setName(payload.getName());
         return nutritionIssue;
     }
 
-    private NutritionIssueDto toPayload(NutritionIssue nutritionIssue) {
+    public static NutritionIssueDto toPayload(NutritionIssue nutritionIssue) {
         NutritionIssueDto payload = new NutritionIssueDto();
         payload.setId(nutritionIssue.getId());
         payload.setName(nutritionIssue.getName());

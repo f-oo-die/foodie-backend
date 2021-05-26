@@ -1,6 +1,5 @@
 package com.foodie.api.model.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,7 +27,7 @@ public class IngredientList extends EntityWithLongId {
     @JoinColumn(name = "ingredient_id", referencedColumnName = "id")
     private Ingredient ingredient;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private Recipe recipe;
 }
