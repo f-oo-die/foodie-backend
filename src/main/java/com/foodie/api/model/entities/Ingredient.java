@@ -23,14 +23,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Ingredient extends EntityWithLongId {
 
-  @Column(name = "IngredientName", nullable = false, unique = true)
-  private String IngredientName;
+  @Column(name = "ingredient_name", nullable = false, unique = true)
+  private String ingredientName;
 
-  @Column(name = "CaloricValue", nullable = false)
-  private Double CaloricValue;
+  @Column(name = "caloric_value", nullable = false)
+  private Double caloricValue;
 
-  @Column(name = "NutritionalValue", nullable = false)
-  private Double NutritionalValue;
+  @Column(name = "nutritional_value", nullable = false)
+  private Double nutritionalValue;
 
   @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
   private Set<IngredientList> ingredientList;

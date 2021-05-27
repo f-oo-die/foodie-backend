@@ -1,11 +1,12 @@
 package com.foodie.api.model.entities;
 
-import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recipe extends EntityWithLongId{
+public class Recipe extends EntityWithLongId {
 
   @Column(name = "title", nullable = false, unique = true)
   private String title;
@@ -38,8 +39,8 @@ public class Recipe extends EntityWithLongId{
   @Column(name = "calorie_status", nullable = false)
   private Integer calorieStatus;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
-  private List<IngredientList> ingredientList;
+  @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  private Set<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
   private Set<FavoriteRecipe> favoriteRecipes;
@@ -56,6 +57,6 @@ public class Recipe extends EntityWithLongId{
   @OneToOne(mappedBy = "recipe", fetch = FetchType.EAGER)
   private Counter recipeCount;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<PreventionList> preventionList;
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private Set<NutritionIssue> nutritionIssues;
 }
