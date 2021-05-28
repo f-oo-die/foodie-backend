@@ -57,6 +57,6 @@ public class Recipe extends EntityWithLongId {
   @OneToOne(mappedBy = "recipe", fetch = FetchType.EAGER)
   private Counter recipeCount;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   private Set<NutritionIssue> nutritionIssues;
 }

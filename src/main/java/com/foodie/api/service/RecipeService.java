@@ -63,6 +63,7 @@ public class RecipeService {
     recipe.setPreparation(payload.getPreparation());
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
+    recipe.setCalorieStatus(payload.getCalorieStatus());
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
@@ -79,6 +80,7 @@ public class RecipeService {
     payload.setPreparation(recipe.getPreparation());
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
+    payload.setCalorieStatus(recipe.getCalorieStatus());
     payload.setIngredientList(recipe.getIngredientList().stream()
       .map(t -> IngredientListService.toPayload(t))
       .collect(Collectors.toSet()));

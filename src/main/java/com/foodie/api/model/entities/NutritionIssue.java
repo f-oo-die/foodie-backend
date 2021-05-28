@@ -27,6 +27,6 @@ public class NutritionIssue extends EntityWithLongId{
     @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
     private Set<NutritionIssueList> nutritionIssueLists;
 
-    @ManyToMany(mappedBy = "nutritionIssues", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "nutritionIssues", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Recipe> recipes;
 }
