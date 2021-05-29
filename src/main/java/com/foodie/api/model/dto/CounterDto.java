@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientDto{
-    private Long id;
-    private String ingredientName;
-    private Double caloricValue;
-    private Double nutritionalValue;
+public class CounterDto {
+  private Long id;
+  private RecipeDto recipe;
+  private UserDto user;
+  private Integer count;
 }

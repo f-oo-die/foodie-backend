@@ -1,51 +1,40 @@
 package com.foodie.api.service;
 
+import com.foodie.api.model.dto.UserDto;
+
 import com.foodie.api.model.entities.User;
 import com.foodie.api.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Service
-@RequestMapping(path="api/v1/user")
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
-
-
-    private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
-    private final com.foodie.api.repository.UserRepository UserRepository;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
-        return UserRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
+
+    public String signUpUser(UserDto userDto){
+
+        String encodedPassword = bCryptPasswordEncoder.encode(userDto.getPassword());
+
+        userDto.setPassword(encodedPassword);
+        User user = fromPayload(userDto);
+        user = userRepository.save(user);
+
+        return "Registered!";
+    }
+    public static User fromPayload(UserDto payload){
+        User user = new User();
+        user.setFirstName(payload.getFirstName());
+        user.setLastName(payload.getLastName());
+        user.setEmail(payload.getEmail());
+        user.setPassword(payload.getPassword());
+        user.setHeight(180);
+        user.setWeight(75);
+        return user;
     }
 
-    public String signUpUser(User User) {
-        boolean userExists = UserRepository.findByEmail(User.getEmail())
-                .isPresent();
-
-        if (userExists) {
-            throw new IllegalStateException("Email already taken");
-        }
-
-        String encodedPassword = bCryptPasswordEncoder
-                .encode(User.getPassword());
-
-        User.setPassword(encodedPassword);
-
-        UserRepository.save(User);
-
-
-
-        return "it works";
-    }
 }

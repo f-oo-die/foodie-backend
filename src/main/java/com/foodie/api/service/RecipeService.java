@@ -5,18 +5,24 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.RecipeDto;
+import com.foodie.api.model.entities.IngredientList;
 import com.foodie.api.model.entities.Recipe;
+import com.foodie.api.repository.IngredientListRepository;
 import com.foodie.api.repository.RecipeRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@javax.transaction.Transactional
 public class RecipeService {
 
   private final RecipeRepository recipeRepo;
+  private final IngredientListRepository ingredientListRepository;
 
   public Collection<RecipeDto> getAll(){
     return recipeRepo.findAll().stream()
@@ -35,6 +41,10 @@ public class RecipeService {
   public RecipeDto save(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
     recipe = recipeRepo.save(recipe);
+    for (IngredientList ingredientList : recipe.getIngredientList()) {
+      ingredientList.setRecipe(recipe);
+      ingredientListRepository.save(ingredientList);
+    }
     return toPayload(recipe);
   }
 
@@ -47,16 +57,22 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
-  private Recipe fromPayload(RecipeDto payload) {
+  public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
     recipe.setTitle(payload.getTitle());
     recipe.setPreparation(payload.getPreparation());
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
+    recipe.setIngredientList(payload.getIngredientList().stream()
+      .map(t -> IngredientListService.fromPayload(t))
+      .collect(Collectors.toSet()));
+    recipe.setNutritionIssues(payload.getNutritionIssues().stream()
+      .map(t -> NutritionIssueService.fromPayload(t))
+      .collect(Collectors.toSet()));
     return recipe;
   }
 
-  private RecipeDto toPayload(Recipe recipe) {
+  public static RecipeDto toPayload(Recipe recipe) {
     RecipeDto payload = new RecipeDto();
     payload.setId(recipe.getId());
     payload.setTitle(recipe.getTitle());
@@ -65,7 +81,10 @@ public class RecipeService {
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
     payload.setIngredientList(recipe.getIngredientList().stream()
       .map(t -> IngredientListService.toPayload(t))
-      .collect(Collectors.toList()));
+      .collect(Collectors.toSet()));
+    payload.setNutritionIssues(recipe.getNutritionIssues().stream()
+      .map(t -> NutritionIssueService.toPayload(t))
+      .collect(Collectors.toSet()));
     return payload;
   }
 }
