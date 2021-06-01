@@ -8,17 +8,17 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Data
 @Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
 public class User extends EntityWithLongId{
 
     @Column(name = "firstName", nullable = false)
@@ -33,14 +33,15 @@ public class User extends EntityWithLongId{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "weight", nullable = true)
+    @Column(name = "weight", nullable = false)
     private Integer weight;
 
-    @Column(name = "height", nullable = true)
+    @Column(name = "height", nullable = false)
     private Integer height;
 
     @Column(name = "gender")
     private String gender;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
