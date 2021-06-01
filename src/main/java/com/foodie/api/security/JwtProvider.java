@@ -16,6 +16,7 @@ import java.security.cert.CertificateException;
 import java.sql.Date;
 import java.time.Instant;
 
+import static io.jsonwebtoken.Jwts.parser;
 import static io.jsonwebtoken.Jwts.parserBuilder;
 import static java.util.Date.from;
 
@@ -51,5 +52,27 @@ public class JwtProvider {
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e){
             throw new SpringFoodieException("Exception occured while retrieving public key from keystore");
         }
+    }
+
+    public boolean validateToken(String jwt){
+        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+        return true;
+    }
+
+    private PublicKey getPublicKey(){
+        try{
+            return keyStore.getCertificate("springblog").getPublicKey();
+        } catch (KeyStoreException e) {
+            throw new SpringFoodieException("Exception occured while retrieving public keys");
+        }
+    }
+
+    public String getUsernameFromJwt(String token){
+        Claims claims = parser()
+                .setSigningKey(getPublicKey())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 }
