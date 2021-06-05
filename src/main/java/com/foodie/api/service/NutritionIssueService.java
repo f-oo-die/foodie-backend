@@ -51,6 +51,12 @@ public class NutritionIssueService {
 
     public static NutritionIssue fromPayload(NutritionIssueDto payload) {
         NutritionIssue nutritionIssue = new NutritionIssue();
+        nutritionIssue.setName(payload.getName());
+        return nutritionIssue;
+    }
+
+    public static NutritionIssue fromPayloadWithId(NutritionIssueDto payload) {
+        NutritionIssue nutritionIssue = new NutritionIssue();
         nutritionIssue.setId(payload.getId());
         nutritionIssue.setName(payload.getName());
         return nutritionIssue;

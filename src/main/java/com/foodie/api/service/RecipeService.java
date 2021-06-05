@@ -69,7 +69,7 @@ public class RecipeService {
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
     recipe.setNutritionIssues(payload.getNutritionIssues().stream()
-      .map(t -> NutritionIssueService.fromPayload(t))
+      .map(t -> NutritionIssueService.fromPayloadWithId(t))
       .collect(Collectors.toSet()));
     return recipe;
   }
