@@ -25,6 +25,15 @@ public class UserService {
         throw new RuntimeException("User with id " + id + " does not exist!");
     }
 
+    public UserDto update(Long id, UserDto payload){
+        getUser(id);
+
+        User user = fromPayload(payload);
+        user.setId(id);
+        user = userRepository.save(user);
+        return toPayload(user);
+    }
+
     public static User fromPayload(UserDto payload){
         User user = new User();
         user.setId(payload.getId());
@@ -47,6 +56,8 @@ public class UserService {
         payload.setFirstName(user.getFirstName());
         payload.setLastName(user.getLastName());
         payload.setPassword(user.getPassword());
+        payload.setHeight(user.getHeight());
+        payload.setWeight(user.getWeight());
         payload.setNutritionIssues(
             user.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.toPayload(t))
