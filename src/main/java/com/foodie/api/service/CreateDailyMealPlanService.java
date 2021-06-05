@@ -26,8 +26,7 @@ public class CreateDailyMealPlanService {
 
     UserDto user = userService.getUser(userId);
 
-    double recommendedCaloriesPerMeal = getRecommendedCaloriesPerMeal(user);
-    Integer calorieStatus = getRecommendedCalorieStatus(recommendedCaloriesPerMeal);
+    Integer calorieStatus = getRecommendedCalorieStatus(user);
     List<RecipeDto> breakfastList = getRecipesByTypeAndStatus(0, calorieStatus);
     List<RecipeDto> lunchList = getRecipesByTypeAndStatus(1, calorieStatus);
     List<RecipeDto> dinnerList = getRecipesByTypeAndStatus(2, calorieStatus);
@@ -50,14 +49,15 @@ public class CreateDailyMealPlanService {
     return plan;
   }
 
-  private Integer getRecommendedCalorieStatus(double recommendedCaloriesPerMeal) {
-    if (recommendedCaloriesPerMeal < 300) return 0;
-    else if (recommendedCaloriesPerMeal > 300 && recommendedCaloriesPerMeal < 700) return 1;
-    return 2;
+  private Integer getRecommendedCalorieStatus(UserDto user) {
+    double BMI = getBMI(user.getWeight(), user.getHeight());
+    if (BMI > 25) return 2;
+    else if (BMI > 18.5 && BMI < 24.9) return 1;
+    return 0;
   }
 
-  private double getRecommendedCaloriesPerMeal(UserDto user) {
-    return (user.getWeight() / user.getHeight()) / 3;
+  private double getBMI(Integer weight, Integer height){
+    return Double.valueOf(weight) / (Math.pow(height / 10, 2)) * 100;
   }
 
   public List<RecipeDto> getRecipesByTypeAndStatus(Integer recipeType, Integer calorieStatus){
@@ -68,7 +68,8 @@ public class CreateDailyMealPlanService {
   public RecipeDto chooseMeal(List<RecipeDto> recipeList, UserDto user){
     RecipeDto chosenMeal = recipeList.get(0);
 
-    int counter = chosenMeal.getRecipeCount().getCount();
+    Integer counter = chosenMeal.getRecipeCount().getCount();
+    if (counter == null) return null;
     for (RecipeDto recipe : recipeList) {
       if (counter > recipe.getRecipeCount().getCount()){
         counter = recipe.getRecipeCount().getCount();

@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class DailyMealPlanController {
     private final DailyMealPlanService service;
 
-    @GetMapping
+    @GetMapping("{userId}")
     public ResponseEntity<Collection<DailyMealPlanDto>> getDailyMealPlanList(
         @PathVariable Long userId
     ){
@@ -31,15 +31,15 @@ public class DailyMealPlanController {
         return ResponseEntity.status(HttpStatus.OK).body(allPlans);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<DailyMealPlanDto> get(
-        @PathVariable Long id
-    ){
-        DailyMealPlanDto result = service.getDailyMealPlan(id);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
+    // @GetMapping("{id}")
+    // public ResponseEntity<DailyMealPlanDto> get(
+    //     @PathVariable Long id
+    // ){
+    //     DailyMealPlanDto result = service.getDailyMealPlan(id);
+    //     return ResponseEntity.status(HttpStatus.OK).body(result);
+    // }
 
-    @PostMapping
+    @PostMapping("{userId}")
     public ResponseEntity<DailyMealPlanDto> save(
         @PathVariable Long userId
     ){
