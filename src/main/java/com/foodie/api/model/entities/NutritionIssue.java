@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -25,8 +24,8 @@ public class NutritionIssue extends EntityWithLongId{
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "nutritionIssue", fetch = FetchType.LAZY)
-    private Set<NutritionIssueList> nutritionIssueLists;
+    @ManyToMany(mappedBy = "nutritionIssues", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<User> users;
 
     @ManyToMany(mappedBy = "nutritionIssues", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Recipe> recipes;
