@@ -19,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class NutritionIssue extends EntityWithLongId{
 
     @Column(name = "name", nullable = false)
