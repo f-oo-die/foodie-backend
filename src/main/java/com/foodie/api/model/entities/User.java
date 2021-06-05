@@ -49,8 +49,8 @@ public class User extends EntityWithLongId{
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<NutritionIssue> nutritionIssues;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<FavoriteRecipe> favoriteRecipes;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<Recipe> favoriteRecipes;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<DailyMealPlan> dailyMealPlans;
