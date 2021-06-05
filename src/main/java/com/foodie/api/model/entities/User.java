@@ -44,7 +44,7 @@ public class User extends EntityWithLongId{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<NutritionIssueList> nutritionIssueLists;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -54,5 +54,5 @@ public class User extends EntityWithLongId{
     private Set<DailyMealPlan> dailyMealPlans;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Counter recipeCount;
+    private Counter count;
 }

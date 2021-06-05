@@ -1,8 +1,8 @@
 package com.foodie.api.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,12 +22,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Counter extends EntityWithLongId {
 
-  @OneToOne
-  @JoinColumn(name = "recipe_id", referencedColumnName = "id")
+  @OneToOne(mappedBy = "recipeCount", cascade = CascadeType.ALL)
   private Recipe recipe;
 
   @OneToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
   @Column(name = "count", nullable = false)

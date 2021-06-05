@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,7 +40,7 @@ public class Recipe extends EntityWithLongId {
   @Column(name = "calorie_status", nullable = false)
   private Integer calorieStatus;
 
-  @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Set<IngredientList> ingredientList;
 
   @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
@@ -54,7 +55,8 @@ public class Recipe extends EntityWithLongId {
   @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
   private Set<DailyMealPlan> dinnerSet;
 
-  @OneToOne(mappedBy = "recipe", fetch = FetchType.EAGER)
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "recipe_count", referencedColumnName = "id")
   private Counter recipeCount;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

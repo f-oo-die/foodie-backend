@@ -23,8 +23,8 @@ public class UserDto {
   private Integer height;
   private String gender;
   // private Set<ShoppingList> shoppingLists;
-  // private Set<NutritionIssueList> nutritionIssueLists;
+  private Set<NutritionIssueListDto> nutritionIssueLists;
   // private Set<FavoriteRecipe> favoriteRecipes;
   private Set<DailyMealPlanDto> dailyMealPlans;
-  private CounterDto recipeCount;
+  private CounterDto count;
 }
