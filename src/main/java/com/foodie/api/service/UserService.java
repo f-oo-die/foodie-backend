@@ -1,6 +1,7 @@
 package com.foodie.api.service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.User;
@@ -31,6 +32,11 @@ public class UserService {
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
         user.setPassword(payload.getPassword());
+        user.setNutritionIssues(
+            payload.getNutritionIssues().stream()
+            .map((t) -> NutritionIssueService.fromPayloadWithId(t))
+            .collect(Collectors.toSet())
+        );
         return user;
     }
     
@@ -41,6 +47,11 @@ public class UserService {
         payload.setFirstName(user.getFirstName());
         payload.setLastName(user.getLastName());
         payload.setPassword(user.getPassword());
+        payload.setNutritionIssues(
+            user.getNutritionIssues().stream()
+            .map((t) -> NutritionIssueService.toPayload(t))
+            .collect(Collectors.toSet())
+        );
         return payload;
     }
 }

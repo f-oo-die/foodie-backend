@@ -1,5 +1,7 @@
 package com.foodie.api.model.entities;
 
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,7 +24,7 @@ import lombok.Setter;
 public class DailyMealPlan extends EntityWithLongId {
 
   @Column(name = "date_id", nullable = false)
-  private String dateId;
+  private Instant dateId;
 
   @Column(name = "rating", nullable = true)
   private Integer rating;

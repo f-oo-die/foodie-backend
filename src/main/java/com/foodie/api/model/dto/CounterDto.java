@@ -13,5 +13,5 @@ public class CounterDto {
   private Long id;
   private RecipeDto recipe;
   private UserDto user;
-  private Integer count;
+  private Integer count = 0;
 }

@@ -14,6 +14,6 @@ import lombok.Setter;
 public class NutritionIssueDto {
   private Long id;
   private String name;
-  private Set<NutritionIssueListDto> nutritionIssueLists;
+  private Set<UserDto> users;
   private Set<RecipeDto> recipes;
 }

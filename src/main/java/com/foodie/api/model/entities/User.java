@@ -2,10 +2,13 @@ package com.foodie.api.model.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -43,8 +46,8 @@ public class User extends EntityWithLongId{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<NutritionIssueList> nutritionIssueLists;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<NutritionIssue> nutritionIssues;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<FavoriteRecipe> favoriteRecipes;
@@ -52,6 +55,6 @@ public class User extends EntityWithLongId{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<DailyMealPlan> dailyMealPlans;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Counter> recipeCount;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Counter count;
 }
