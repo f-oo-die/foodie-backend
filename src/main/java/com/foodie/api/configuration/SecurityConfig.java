@@ -1,4 +1,4 @@
-package com.foodie.api.config;
+package com.foodie.api.configuration;
 
 import com.foodie.api.security.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
@@ -42,6 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/recipes")
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/nutrition-issues")
+                .permitAll()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
