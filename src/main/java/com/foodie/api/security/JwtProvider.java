@@ -1,24 +1,25 @@
 package com.foodie.api.security;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
+import javax.annotation.PostConstruct;
+
 import com.foodie.api.exceptions.SpringFoodieException;
-import com.foodie.api.model.entities.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.*;
-import java.security.cert.CertificateException;
-import java.sql.Date;
-import java.time.Instant;
-
-import static io.jsonwebtoken.Jwts.parser;
-import static io.jsonwebtoken.Jwts.parserBuilder;
-import static java.util.Date.from;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
 
 @Service
 
@@ -55,7 +56,8 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String jwt){
-        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+        ((JwtParser) Jwts.parserBuilder()
+        .setSigningKey(getPublicKey())).parseClaimsJws(jwt);
         return true;
     }
 
@@ -68,8 +70,8 @@ public class JwtProvider {
     }
 
     public String getUsernameFromJwt(String token){
-        Claims claims = parser()
-                .setSigningKey(getPublicKey())
+        Claims claims = ((JwtParser) Jwts.parserBuilder()
+                .setSigningKey(getPublicKey()))
                 .parseClaimsJws(token)
                 .getBody();
 
