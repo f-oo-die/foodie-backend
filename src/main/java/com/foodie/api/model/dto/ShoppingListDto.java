@@ -1,11 +1,10 @@
 package com.foodie.api.model.dto;
-import com.foodie.api.model.entities.ShoppingIngredient;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,9 +13,5 @@ import java.util.Set;
 public class ShoppingListDto {
     private Long id;
     private UserDto user;
-    private Set<ShoppingIngredientDto> shoppingIngredients;
-
-
-
-
+    private Set<IngredientDto> ingredients;
 }
