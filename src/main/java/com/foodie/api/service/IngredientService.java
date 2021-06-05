@@ -56,6 +56,15 @@ public class IngredientService {
     return ingredient;
   }
 
+  public static Ingredient fromPayloadWithId(IngredientDto payload) {
+    Ingredient ingredient = new Ingredient();
+    ingredient.setId(payload.getId());
+    ingredient.setIngredientName(payload.getIngredientName());
+    ingredient.setCaloricValue(payload.getCaloricValue());
+    ingredient.setNutritionalValue(payload.getNutritionalValue());
+    return ingredient;
+  }
+
   public static IngredientDto toPayload(Ingredient ingredient) {
     IngredientDto payload = new IngredientDto();
     payload.setId(ingredient.getId());
