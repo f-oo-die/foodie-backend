@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/shopping-list")
 @RequiredArgsConstructor
-
 public class ShoppingListController  {
 
     private final ShoppingListService service;

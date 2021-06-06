@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,12 +16,12 @@ public class UserDto {
   private String lastName;
   private String email;
   private String password;
-  // private Integer weight;
-  // private Integer height;
+  private Integer weight;
+  private Integer height;
   // private String gender;
   private Set<ShoppingListDto> shoppingLists;
-  // private Set<NutritionIssueListDto> nutritionIssueLists;
-  // private Set<FavoriteRecipeDto> favoriteRecipes;
-  // private Set<DailyMealPlanDto> dailyMealPlans;
-  // private Set<CounterDto> recipeCount;
+  private Set<NutritionIssueDto> nutritionIssues;
+  private Set<RecipeDto> favoriteRecipes;
+  private Set<DailyMealPlanDto> dailyMealPlans;
+  private Set<CounterDto> recipeCount;
 }
