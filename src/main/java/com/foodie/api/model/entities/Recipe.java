@@ -6,8 +6,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -35,11 +37,14 @@ public class Recipe extends EntityWithLongId {
   @Column(name = "type_of_meal", nullable = false)
   private Integer typeOfMeal;
 
-  @OneToMany(mappedBy = "recipe", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  @Column(name = "calorie_status", nullable = false)
+  private Integer calorieStatus;
+
+  @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Set<IngredientList> ingredientList;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<FavoriteRecipe> favoriteRecipes;
+  @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  private Set<User> users;
 
   @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
   private Set<DailyMealPlan> breakfastSet;
@@ -50,9 +55,10 @@ public class Recipe extends EntityWithLongId {
   @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
   private Set<DailyMealPlan> dinnerSet;
 
-  @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-  private Set<Counter> recipeCount;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "recipe_count", referencedColumnName = "id")
+  private Counter recipeCount;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   private Set<NutritionIssue> nutritionIssues;
 }
