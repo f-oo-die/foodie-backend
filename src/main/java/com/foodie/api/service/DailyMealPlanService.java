@@ -2,7 +2,6 @@ package com.foodie.api.service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.DailyMealPlanDto;
@@ -28,13 +27,13 @@ public class DailyMealPlanService {
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
     }
 
-    public DailyMealPlanDto getDailyMealPlan(Long id){
-        Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findById(id);
-        if (dailyMealPlan.isPresent()){
-            return toPayload(dailyMealPlan.get());
-        }
-        throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
-    }
+    // public DailyMealPlanDto getDailyMealPlan(Long id){
+    //     Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findById(id);
+    //     if (dailyMealPlan.isPresent()){
+    //         return toPayload(dailyMealPlan.get());
+    //     }
+    //     throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
+    // }
 
     public DailyMealPlanDto create(Long userId){
         UserDto user = userService.getUser(userId);
