@@ -2,8 +2,10 @@ package com.foodie.api.model.entities;
 
 import java.time.Instant;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,15 +31,15 @@ public class DailyMealPlan extends EntityWithLongId {
   @Column(name = "rating", nullable = true)
   private Integer rating;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinColumn(name = "breakfast_id", referencedColumnName = "id")
   private Recipe breakfast;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinColumn(name = "lunch_id", referencedColumnName = "id")
   private Recipe lunch;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinColumn(name = "dinner_id", referencedColumnName = "id")
   private Recipe dinner;
 
