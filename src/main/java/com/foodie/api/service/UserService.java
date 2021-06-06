@@ -46,6 +46,11 @@ public class UserService {
             .map((t) -> NutritionIssueService.fromPayloadWithId(t))
             .collect(Collectors.toSet())
         );
+        user.setFavoriteRecipes(
+            payload.getFavoriteRecipes().stream()
+            .map((t) -> RecipeService.fromPayloadWithId(t))
+            .collect(Collectors.toSet())
+        );
         return user;
     }
     
@@ -61,6 +66,11 @@ public class UserService {
         payload.setNutritionIssues(
             user.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.toPayload(t))
+            .collect(Collectors.toSet())
+        );
+        payload.setFavoriteRecipes(
+            user.getFavoriteRecipes().stream()
+            .map((t) -> RecipeService.toPayload(t))
             .collect(Collectors.toSet())
         );
         return payload;
