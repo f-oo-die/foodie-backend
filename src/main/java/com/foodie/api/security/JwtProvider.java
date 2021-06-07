@@ -1,5 +1,7 @@
 package com.foodie.api.security;
 
+import static io.jsonwebtoken.Jwts.parserBuilder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -18,7 +20,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
 @Service
@@ -56,8 +57,7 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String jwt){
-        ((JwtParser) Jwts.parserBuilder()
-        .setSigningKey(getPublicKey())).parseClaimsJws(jwt);
+        parserBuilder().setSigningKey(getPublicKey()).build().parseClaimsJws(jwt);
         return true;
     }
 
@@ -70,10 +70,11 @@ public class JwtProvider {
     }
 
     public String getUsernameFromJwt(String token){
-        Claims claims = ((JwtParser) Jwts.parserBuilder()
-                .setSigningKey(getPublicKey()))
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = parserBuilder()
+        .setSigningKey(getPublicKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
 
         return claims.getSubject();
     }

@@ -3,6 +3,7 @@ package com.foodie.api.service;
 import com.foodie.api.model.dto.AuthenticationResponse;
 import com.foodie.api.model.dto.LoginRequest;
 import com.foodie.api.model.dto.RegisterRequest;
+import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.User;
 import com.foodie.api.repository.UserRepository;
 import com.foodie.api.security.JwtProvider;
@@ -14,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -45,9 +48,9 @@ public class AuthService {
                 loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(token, loginRequest.getEmail());
+
+        Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
+        return new AuthenticationResponse(token, loginRequest.getEmail(), user.get().getId());
     }
-
-
 
 }
