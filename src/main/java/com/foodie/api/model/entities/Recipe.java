@@ -43,7 +43,7 @@ public class Recipe extends EntityWithLongId {
   @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Set<IngredientList> ingredientList;
 
-  @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   private Set<User> users;
 
   @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
