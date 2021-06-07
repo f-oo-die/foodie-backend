@@ -13,6 +13,13 @@ public class CounterService {
     return counter;
   }
 
+  public static Counter fromPayloadWithId(CounterDto payload){
+    Counter counter = new Counter();
+    counter.setId(payload.getId());
+    counter.setCount(payload.getCount());
+    return counter;
+  }
+
   public static CounterDto toPayload(Counter counter){
     CounterDto payload = new CounterDto();
     payload.setId(counter.getId());

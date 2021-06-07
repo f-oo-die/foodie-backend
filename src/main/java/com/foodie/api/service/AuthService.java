@@ -1,13 +1,14 @@
 package com.foodie.api.service;
 
+import java.util.Optional;
+
 import com.foodie.api.model.dto.AuthenticationResponse;
 import com.foodie.api.model.dto.LoginRequest;
 import com.foodie.api.model.dto.RegisterRequest;
-import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.User;
 import com.foodie.api.repository.UserRepository;
 import com.foodie.api.security.JwtProvider;
-import lombok.AllArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
