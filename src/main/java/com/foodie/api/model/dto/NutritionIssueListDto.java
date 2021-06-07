@@ -9,8 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FavoriteRecipeDto {
+public class NutritionIssueListDto {
   private Long id;
-  private RecipeDto recipe;
   private UserDto user;
+  private NutritionIssueDto nutritionIssue;
+
+  // todo: uncomment the line below when we create User crud . . .
+  // private UserDto user;
 }

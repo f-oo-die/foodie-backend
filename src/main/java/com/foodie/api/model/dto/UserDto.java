@@ -21,7 +21,7 @@ public class UserDto {
   // private String gender;
   private Set<ShoppingListDto> shoppingLists;
   private Set<NutritionIssueDto> nutritionIssues;
-  // private Set<FavoriteRecipeDto> favoriteRecipes;
+  private Set<RecipeDto> favoriteRecipes;
   private Set<DailyMealPlanDto> dailyMealPlans;
   private Set<CounterDto> recipeCount;
 }

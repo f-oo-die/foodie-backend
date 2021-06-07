@@ -25,13 +25,40 @@ public class UserService {
         throw new RuntimeException("User with id " + id + " does not exist!");
     }
 
+    public UserDto update(Long id, UserDto payload){
+        getUser(id);
+
+        User user = fromPayload(payload);
+        user.setId(id);
+        user = userRepository.save(user);
+        return toPayload(user);
+    }
+
     public static User fromPayload(UserDto payload){
+        User user = new User();
+        user.setEmail(payload.getEmail());
+        user.setFirstName(payload.getFirstName());
+        user.setLastName(payload.getLastName());
+        user.setPassword(payload.getPassword());
+        user.setHeight(payload.getHeight());
+        user.setWeight(payload.getWeight());
+        user.setNutritionIssues(
+            payload.getNutritionIssues().stream()
+            .map((t) -> NutritionIssueService.fromPayloadWithId(t))
+            .collect(Collectors.toSet())
+        );
+        return user;
+    }
+
+    public static User fromPayloadWithId(UserDto payload){
         User user = new User();
         user.setId(payload.getId());
         user.setEmail(payload.getEmail());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
         user.setPassword(payload.getPassword());
+        user.setHeight(payload.getHeight());
+        user.setWeight(payload.getWeight());
         user.setNutritionIssues(
             payload.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.fromPayloadWithId(t))
@@ -47,6 +74,8 @@ public class UserService {
         payload.setFirstName(user.getFirstName());
         payload.setLastName(user.getLastName());
         payload.setPassword(user.getPassword());
+        payload.setHeight(user.getHeight());
+        payload.setWeight(user.getWeight());
         payload.setNutritionIssues(
             user.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.toPayload(t))

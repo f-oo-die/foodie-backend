@@ -2,14 +2,7 @@ package com.foodie.api.model.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,10 +27,10 @@ public class User extends EntityWithLongId{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "weight", nullable = false)
+    @Column(name = "weight", nullable = true)
     private Integer weight;
 
-    @Column(name = "height", nullable = false)
+    @Column(name = "height", nullable = true)
     private Integer height;
 
     @Column(name = "gender")
@@ -49,8 +42,8 @@ public class User extends EntityWithLongId{
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<NutritionIssue> nutritionIssues;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<FavoriteRecipe> favoriteRecipes;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Set<Recipe> favoriteRecipes;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<DailyMealPlan> dailyMealPlans;

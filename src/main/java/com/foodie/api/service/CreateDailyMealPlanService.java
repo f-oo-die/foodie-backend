@@ -1,10 +1,11 @@
 package com.foodie.api.service;
 
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.DailyMealPlanDto;
+import com.foodie.api.model.dto.NutritionIssueDto;
 import com.foodie.api.model.dto.RecipeDto;
 import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.Recipe;
@@ -19,17 +20,15 @@ import lombok.RequiredArgsConstructor;
 public class CreateDailyMealPlanService {
 
   private final RecipeRepository recipeRepo;
-  private final UserService userService;
   
-  public DailyMealPlanDto createDailyMealPlan(Long userId){
+  public DailyMealPlanDto createDailyMealPlan(UserDto user){
     DailyMealPlanDto plan = new DailyMealPlanDto();
 
-    UserDto user = userService.getUser(userId);
-
     Integer calorieStatus = getRecommendedCalorieStatus(user);
-    List<RecipeDto> breakfastList = getRecipesByTypeAndStatus(0, calorieStatus);
-    List<RecipeDto> lunchList = getRecipesByTypeAndStatus(1, calorieStatus);
-    List<RecipeDto> dinnerList = getRecipesByTypeAndStatus(2, calorieStatus);
+    List<Long> userNutritionIssueIds = getUserNutritionIssueIds(user);
+    List<RecipeDto> breakfastList = getRecipesByTypeAndStatus(0, calorieStatus, userNutritionIssueIds);
+    List<RecipeDto> lunchList = getRecipesByTypeAndStatus(1, calorieStatus, userNutritionIssueIds);
+    List<RecipeDto> dinnerList = getRecipesByTypeAndStatus(2, calorieStatus, userNutritionIssueIds);
 
     RecipeDto breakfast = chooseMeal(breakfastList, user);
     RecipeDto lunch = chooseMeal(lunchList, user);
@@ -40,12 +39,19 @@ public class CreateDailyMealPlanService {
     return plan;
   }
 
+  private List<Long> getUserNutritionIssueIds(UserDto user) {
+    List<Long> nutritionissueIds = new ArrayList<>();
+    for (NutritionIssueDto nutritionIssue : user.getNutritionIssues()) {
+      nutritionissueIds.add(nutritionIssue.getId());
+    }
+    return nutritionissueIds;
+  }
+
   private DailyMealPlanDto setDailyMealPlan(DailyMealPlanDto plan, RecipeDto breakfast, RecipeDto lunch,
       RecipeDto dinner) {
     plan.setBreakfast(breakfast);
     plan.setLunch(lunch);
     plan.setDinner(dinner);
-    plan.setDateId(Instant.now());
     return plan;
   }
 
@@ -60,8 +66,8 @@ public class CreateDailyMealPlanService {
     return Double.valueOf(weight) / (Math.pow(height / 10, 2)) * 100;
   }
 
-  public List<RecipeDto> getRecipesByTypeAndStatus(Integer recipeType, Integer calorieStatus){
-    List<Recipe> recipes = recipeRepo.findAllRecipesByTypeOfMealAndStatus(recipeType, calorieStatus);
+  public List<RecipeDto> getRecipesByTypeAndStatus(Integer recipeType, Integer calorieStatus, List<Long> userNutritionIssueIds){
+    List<Recipe> recipes = recipeRepo.findAllRecipesByTypeOfMealAndStatus(recipeType, calorieStatus, userNutritionIssueIds);
     return recipes.stream().map(t -> RecipeService.toPayload(t)).collect(Collectors.toList());
   }
 
