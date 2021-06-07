@@ -38,6 +38,15 @@ public class IngredientListService {
     return ingredientList;
   }
 
+  public static IngredientList fromPayloadWithId(IngredientListDto payload) {
+    IngredientList ingredientList = new IngredientList();
+    ingredientList.setId(payload.getId());
+    ingredientList.setAmount(payload.getAmount());
+    ingredientList.setAmountLabel(payload.getAmountLabel());
+    ingredientList.setIngredient(IngredientService.fromPayloadWithId(payload.getIngredient()));
+    return ingredientList;
+  }
+
   public static IngredientListDto toPayload(IngredientList ingredientList) {
     IngredientListDto payload = new IngredientListDto();
     payload.setId(ingredientList.getId());
