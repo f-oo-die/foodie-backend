@@ -36,19 +36,32 @@ public class UserService {
 
     public static User fromPayload(UserDto payload){
         User user = new User();
-        user.setId(payload.getId());
         user.setEmail(payload.getEmail());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
         user.setPassword(payload.getPassword());
+        user.setHeight(payload.getHeight());
+        user.setWeight(payload.getWeight());
         user.setNutritionIssues(
             payload.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.fromPayloadWithId(t))
             .collect(Collectors.toSet())
         );
-        user.setFavoriteRecipes(
-            payload.getFavoriteRecipes().stream()
-            .map((t) -> RecipeService.fromPayloadWithId(t))
+        return user;
+    }
+
+    public static User fromPayloadWithId(UserDto payload){
+        User user = new User();
+        user.setId(payload.getId());
+        user.setEmail(payload.getEmail());
+        user.setFirstName(payload.getFirstName());
+        user.setLastName(payload.getLastName());
+        user.setPassword(payload.getPassword());
+        user.setHeight(payload.getHeight());
+        user.setWeight(payload.getWeight());
+        user.setNutritionIssues(
+            payload.getNutritionIssues().stream()
+            .map((t) -> NutritionIssueService.fromPayloadWithId(t))
             .collect(Collectors.toSet())
         );
         return user;
@@ -66,11 +79,6 @@ public class UserService {
         payload.setNutritionIssues(
             user.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.toPayload(t))
-            .collect(Collectors.toSet())
-        );
-        payload.setFavoriteRecipes(
-            user.getFavoriteRecipes().stream()
-            .map((t) -> RecipeService.toPayload(t))
             .collect(Collectors.toSet())
         );
         return payload;
