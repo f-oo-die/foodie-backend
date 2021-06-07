@@ -3,9 +3,13 @@ package com.foodie.api.controller;
 import static com.foodie.api.builder.ObjectTestBuilder.INGREDIENT_ID;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static com.foodie.api.builder.ObjectTestBuilder.buildIngredientDto;
 
 import com.foodie.api.controller.admin.IngredientAdminController;
+import com.foodie.api.model.dto.IngredientDto;
 import com.foodie.api.service.IngredientService;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +26,24 @@ public class IngredientAdminControllerTest {
 
   @Autowired
   private MockMvc mvc;
+
+  @Test
+  public void getIngredientSuccess() throws Exception {
+    mvc.perform(get("/admin/ingredients/" + INGREDIENT_ID))
+        .andExpect(status().isOk());
+
+    verify(ingredientService).getIngredient(INGREDIENT_ID);
+  }
+
+  @Test
+  public void saveIngredientSuccess() throws Exception {
+    IngredientDto ingredient = buildIngredientDto();
+    mvc.perform(post("/admin/ingredients"))
+        .andExpect(status().isOk());
+
+    verify(ingredientService).save(ingredient);
+  }
+    
 
   @Test
   public void deleteIngredientSuccess() throws Exception {

@@ -64,4 +64,17 @@ public class IngredientServiceTest {
     assertThrows(RuntimeException.class, () -> ingredientService.getIngredient(INGREDIENT_ID));
   }
 
+  // @Test
+  // public void saveRecipeSuccess() {
+  //   Ingredient dbIngredient = buildIngredient();
+  //   when(ingredientRepository.save(dbIngredient))
+  //       .thenReturn(dbIngredient);
+
+  //   IngredientDto ingredient = ingredientService.getIngredient(dbIngredient.getId());
+    
+  //   assertNotNull(ingredient);
+  //   assertEquals(dbIngredient.getId(), ingredient.getId());
+  //   assertEquals(dbIngredient.getIngredientName(), ingredient.getIngredientName());
+  // }
+
 }
