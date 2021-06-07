@@ -28,9 +28,8 @@ public class ShoppingListController  {
 
     @PostMapping("{userId}")
     public ResponseEntity<ShoppingListDto> save(
-        @PathVariable Long userId,
-        @RequestBody ShoppingListDto shoppingList){
-        return ResponseEntity.status(HttpStatus.OK).body(service.save(userId, shoppingList));
+        @PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(service.save(userId));
     }
 
     @GetMapping("/{userId}/{id}")
