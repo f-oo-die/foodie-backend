@@ -47,6 +47,10 @@ public class IngredientService {
     return toPayload(ingredient);
   }
 
+  public void delete(Long id) {
+    ingredientRepo.deleteById(id);
+  }
+
   public static Ingredient fromPayload(IngredientDto payload) {
     Ingredient ingredient = new Ingredient();
     ingredient.setIngredientName(payload.getIngredientName());
