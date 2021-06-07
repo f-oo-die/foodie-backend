@@ -27,10 +27,10 @@ public class User extends EntityWithLongId{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "weight", nullable = false)
+    @Column(name = "weight", nullable = true)
     private Integer weight;
 
-    @Column(name = "height", nullable = false)
+    @Column(name = "height", nullable = true)
     private Integer height;
 
     @Column(name = "gender")
@@ -42,7 +42,7 @@ public class User extends EntityWithLongId{
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<NutritionIssue> nutritionIssues;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Recipe> favoriteRecipes;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
