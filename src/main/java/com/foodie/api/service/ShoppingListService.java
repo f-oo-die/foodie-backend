@@ -1,6 +1,7 @@
 package com.foodie.api.service;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class ShoppingListService {
 
     private final ShoppingListRepository shoppingListRepo;
+    private final UserService userService;
 
     public Collection<ShoppingListDto> getAll(Long userId) {
         List<ShoppingList> shoppingLists = shoppingListRepo.findShoppingListsOfUser(userId);
@@ -28,11 +30,14 @@ public class ShoppingListService {
                 .collect(Collectors.toList());
     }
 
-    public ShoppingListDto save(Long userId, ShoppingListDto payload) {
-        ShoppingList shoppingList = fromPayload(payload);
-        shoppingList = shoppingListRepo.save(shoppingList);
+    public ShoppingListDto save(Long userId) {
+        ShoppingListDto shoppingList = new ShoppingListDto();
+        shoppingList.setUser(userService.getUser(userId));
+        shoppingList.setIngredients(new HashSet<>());
+        ShoppingList dbShoppingList = fromPayload(shoppingList);
+        dbShoppingList = shoppingListRepo.save(dbShoppingList);
 
-        return toPayload(shoppingList);
+        return toPayload(dbShoppingList);
     }
 
     public ShoppingListDto getShoppingList(Long userId, Long id){
