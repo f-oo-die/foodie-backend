@@ -34,7 +34,7 @@ public class IngredientListService {
     IngredientList ingredientList = new IngredientList();
     ingredientList.setAmount(payload.getAmount());
     ingredientList.setAmountLabel(payload.getAmountLabel());
-    ingredientList.setIngredient(IngredientService.fromPayload(payload.getIngredient()));
+    ingredientList.setIngredient(IngredientService.fromPayloadWithId(payload.getIngredient()));
     return ingredientList;
   }
 
