@@ -5,17 +5,49 @@ import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.User;
+import com.foodie.api.model.entities.UserRole;
 import com.foodie.api.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+
+import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Value("${ADMINUSERNAME}")
+    private String adminUsername;
+    @Value("${ADMINPASSWORD}")
+    private String adminPassword;
+    @Value("${ADMINFIRSTNAME}")
+    private String adminFirstName;
+    @Value("${ADMINLASTNAME}")
+    private String adminLastName;
+
+    @PostConstruct
+    public void init(){
+        //environment variable -- cors prof. config
+        Optional<User> user = userRepository.findByEmail(adminUsername);
+        if(!user.isPresent()){
+            User adminUser = new User();
+            adminUser.setEmail(adminUsername);
+            adminUser.setPassword(adminPassword);
+            adminUser.setFirstName(adminFirstName);
+            adminUser.setLastName(adminLastName);
+            adminUser.setHeight(175);
+            adminUser.setWeight(68);
+            adminUser.setUserRole(UserRole.ADMIN);
+            userRepository.save(adminUser);
+        }
+
+
+    }
 
     public UserDto getUser(Long id){
         Optional<User> user = userRepository.findById(id);

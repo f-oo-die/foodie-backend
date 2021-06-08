@@ -36,6 +36,10 @@ public class User extends EntityWithLongId{
     @Column(name = "profile_image_url", nullable = false)
     private String profileImageUrl;
 
+    @Column(name= "userRole")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
 

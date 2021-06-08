@@ -6,6 +6,7 @@ import com.foodie.api.model.dto.AuthenticationResponse;
 import com.foodie.api.model.dto.LoginRequest;
 import com.foodie.api.model.dto.RegisterRequest;
 import com.foodie.api.model.entities.User;
+import com.foodie.api.model.entities.UserRole;
 import com.foodie.api.repository.UserRepository;
 import com.foodie.api.security.JwtProvider;
 
@@ -42,6 +43,7 @@ public class AuthService {
         user.setWeight(68);
         user.setProfileImageUrl("https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png");
 
+        user.setUserRole(UserRole.USER);
         userRepository.save(user);
     }
 
@@ -52,7 +54,7 @@ public class AuthService {
         String token = jwtProvider.generateToken(authenticate);
 
         Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
-        return new AuthenticationResponse(token, loginRequest.getEmail(), user.get().getId());
+        return new AuthenticationResponse(token, loginRequest.getEmail(), user.get().getId(), user.get().getUserRole());
     }
 
 }
