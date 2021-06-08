@@ -33,8 +33,8 @@ public class User extends EntityWithLongId{
     @Column(name = "height", nullable = true)
     private Integer height;
 
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "profile_image_url", nullable = false)
+    private String profileImageUrl;
 
     @Column(name= "userRole")
     @Enumerated(EnumType.STRING)
@@ -52,6 +52,6 @@ public class User extends EntityWithLongId{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<DailyMealPlan> dailyMealPlans;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Counter count;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<ShoppingList> recipeCount;
 }

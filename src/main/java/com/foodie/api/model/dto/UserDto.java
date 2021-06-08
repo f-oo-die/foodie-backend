@@ -18,10 +18,20 @@ public class UserDto {
   private String password;
   private Integer weight;
   private Integer height;
-  // private String gender;
+  private String profileImageUrl;
   private Set<ShoppingListDto> shoppingLists;
   private Set<NutritionIssueDto> nutritionIssues;
   private Set<RecipeDto> favoriteRecipes;
   private Set<DailyMealPlanDto> dailyMealPlans;
-  private Set<CounterDto> recipeCount;
+
+  private Double getBMI(){
+    return Double.valueOf(weight) / (Math.pow(height / 10, 2)) * 100;
+  }
+
+  public Integer getRecommendedCalorieStatus() {
+    double BMI = getBMI();
+    if (BMI > 25) return 2;
+    else if (BMI > 18.5 && BMI < 24.9) return 1;
+    return 0;
+  }
 }

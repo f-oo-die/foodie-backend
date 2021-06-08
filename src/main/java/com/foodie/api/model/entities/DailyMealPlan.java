@@ -1,6 +1,6 @@
 package com.foodie.api.model.entities;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +25,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DailyMealPlan extends EntityWithLongId {
 
-  @Column(name = "date_id", nullable = false)
-  private Instant dateId;
+  @Column(name = "date", nullable = false)
+  private LocalDate date;
 
   @Column(name = "rating", nullable = true)
   private Integer rating;

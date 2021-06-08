@@ -1,7 +1,8 @@
 package com.foodie.api.service;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.DailyMealPlanDto;
@@ -21,19 +22,20 @@ public class DailyMealPlanService {
     private final DailyMealPlanRepository dailyMealPlanRepo;
     private final CreateDailyMealPlanService createDailyMealPlanService;
     private final UserService userService;
+    private final RecipeService recipeService;
 
     public List<DailyMealPlanDto> getDailyMealPlanList(Long userId){
         List<DailyMealPlan> dailyMealPlan= dailyMealPlanRepo.findDailyMealPlanofUser(userId);
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
     }
 
-    // public DailyMealPlanDto getDailyMealPlan(Long id){
-    //     Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findById(id);
-    //     if (dailyMealPlan.isPresent()){
-    //         return toPayload(dailyMealPlan.get());
-    //     }
-    //     throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
-    // }
+    public DailyMealPlanDto getDailyMealPlan(Long userId, Long id){
+        Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findByUserAndId(userId, id);
+        if (dailyMealPlan.isPresent()){
+            return toPayload(dailyMealPlan.get());
+        }
+        throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
+    }
 
     public DailyMealPlanDto create(Long userId){
         UserDto user = userService.getUser(userId);
@@ -44,26 +46,26 @@ public class DailyMealPlanService {
     }
 
     public DailyMealPlanDto save(DailyMealPlanDto payload, UserDto user) {
-        DailyMealPlan dailyMealPlan = fromPayload(payload);
+        DailyMealPlan dailyMealPlan = fromPayload(payload, user);
         dailyMealPlan.setUser(UserService.fromPayloadWithId(user));
         dailyMealPlan = dailyMealPlanRepo.save(dailyMealPlan);
 
         return toPayload(dailyMealPlan);
     }
 
-    private DailyMealPlan fromPayload(DailyMealPlanDto payload){
+    private DailyMealPlan fromPayload(DailyMealPlanDto payload, UserDto user){
         DailyMealPlan dailyMealPlan = new DailyMealPlan();
-        dailyMealPlan.setDateId(Instant.now());
-        dailyMealPlan.setBreakfast(RecipeService.fromPayloadWithId(payload.getBreakfast()));
-        dailyMealPlan.setLunch(RecipeService.fromPayloadWithId(payload.getLunch()));
-        dailyMealPlan.setDinner(RecipeService.fromPayloadWithId(payload.getDinner()));
+        dailyMealPlan.setDate(LocalDate.now());
+        dailyMealPlan.setBreakfast(recipeService.updateCount(payload.getBreakfast()));
+        dailyMealPlan.setLunch(recipeService.updateCount(payload.getLunch()));
+        dailyMealPlan.setDinner(recipeService.updateCount(payload.getDinner()));
         return dailyMealPlan;
     }
 
     public static DailyMealPlanDto toPayload(DailyMealPlan dailyMealPlan){
         DailyMealPlanDto payload = new DailyMealPlanDto();
         payload.setId(dailyMealPlan.getId());
-        payload.setDateId(dailyMealPlan.getDateId());
+        payload.setDate(dailyMealPlan.getDate());
         payload.setBreakfast(RecipeService.toPayload(dailyMealPlan.getBreakfast()));
         payload.setLunch(RecipeService.toPayload(dailyMealPlan.getLunch()));
         payload.setDinner(RecipeService.toPayload(dailyMealPlan.getDinner()));
