@@ -2,7 +2,7 @@ package com.foodie.api.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import com.foodie.api.model.dto.DailyMealPlanDto;
 import com.foodie.api.model.dto.NutritionIssueDto;
@@ -24,15 +24,11 @@ public class CreateDailyMealPlanService {
   public DailyMealPlanDto createDailyMealPlan(UserDto user){
     DailyMealPlanDto plan = new DailyMealPlanDto();
 
-    Integer calorieStatus = getRecommendedCalorieStatus(user);
+    Integer calorieStatus = user.getRecommendedCalorieStatus();
     List<Long> userNutritionIssueIds = getUserNutritionIssueIds(user);
-    List<RecipeDto> breakfastList = getRecipesByTypeAndStatus(0, calorieStatus, userNutritionIssueIds);
-    List<RecipeDto> lunchList = getRecipesByTypeAndStatus(1, calorieStatus, userNutritionIssueIds);
-    List<RecipeDto> dinnerList = getRecipesByTypeAndStatus(2, calorieStatus, userNutritionIssueIds);
-
-    RecipeDto breakfast = chooseMeal(breakfastList, user);
-    RecipeDto lunch = chooseMeal(lunchList, user);
-    RecipeDto dinner = chooseMeal(dinnerList, user);
+    RecipeDto breakfast = getFilteredRecipes(user, 0, calorieStatus, userNutritionIssueIds);
+    RecipeDto lunch = getFilteredRecipes(user, 1, calorieStatus, userNutritionIssueIds);
+    RecipeDto dinner = getFilteredRecipes(user, 2, calorieStatus, userNutritionIssueIds);
 
     plan = setDailyMealPlan(plan, breakfast, lunch, dinner);
 
@@ -55,33 +51,9 @@ public class CreateDailyMealPlanService {
     return plan;
   }
 
-  private Integer getRecommendedCalorieStatus(UserDto user) {
-    double BMI = getBMI(user.getWeight(), user.getHeight());
-    if (BMI > 25) return 2;
-    else if (BMI > 18.5 && BMI < 24.9) return 1;
-    return 0;
-  }
-
-  private double getBMI(Integer weight, Integer height){
-    return Double.valueOf(weight) / (Math.pow(height / 10, 2)) * 100;
-  }
-
-  public List<RecipeDto> getRecipesByTypeAndStatus(Integer recipeType, Integer calorieStatus, List<Long> userNutritionIssueIds){
-    List<Recipe> recipes = recipeRepo.findAllRecipesByTypeOfMealAndStatus(recipeType, calorieStatus, userNutritionIssueIds);
-    return recipes.stream().map(t -> RecipeService.toPayload(t)).collect(Collectors.toList());
-  }
-
-  public RecipeDto chooseMeal(List<RecipeDto> recipeList, UserDto user){
-    RecipeDto chosenMeal = recipeList.get(0);
-
-    Integer counter = chosenMeal.getRecipeCount().getCount();
-    if (counter == null) return null;
-    for (RecipeDto recipe : recipeList) {
-      if (counter > recipe.getRecipeCount().getCount()){
-        counter = recipe.getRecipeCount().getCount();
-        chosenMeal = recipe;
-      }
-    }
-    return chosenMeal;
+  public RecipeDto getFilteredRecipes(UserDto user, Integer recipeType, Integer calorieStatus, List<Long> userNutritionIssueIds){
+    Optional<Recipe> recipe = recipeRepo.findFilteredRecipes(recipeType, calorieStatus, userNutritionIssueIds);
+    if(recipe.isPresent()) return RecipeService.toPayload(recipe.get());
+    throw new RuntimeException("Database does not contain recipe with filtered preferences!");
   }
 }

@@ -40,6 +40,7 @@ public class RecipeService {
 
   public RecipeDto save(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
+    recipe.setCount(0);
     recipe = recipeRepo.save(recipe);
     for (IngredientList ingredientList : recipe.getIngredientList()) {
       ingredientList.setRecipe(recipe);
@@ -57,6 +58,13 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
+  public Recipe updateCount(RecipeDto payload){
+    Recipe recipe = fromPayloadWithId(payload);
+    recipe.setCount(recipe.getCount()+1);
+    recipe = recipeRepo.save(recipe);
+    return recipe;
+  }
+
   public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
     recipe.setTitle(payload.getTitle());
@@ -64,6 +72,7 @@ public class RecipeService {
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
+    recipe.setCount(payload.getCount());
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
@@ -81,6 +90,7 @@ public class RecipeService {
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
+    recipe.setCount(payload.getCount());
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayloadWithId(t))
       .collect(Collectors.toSet()));
@@ -90,12 +100,6 @@ public class RecipeService {
     return recipe;
   }
 
-  // public Recipe setRecipe(RecipeDto payload, UserDto user) {
-  //   Recipe recipe = fromPayloadWithId(payload);
-  //   counterService.incrementCounter(payload.getId(), payload.getRecipeCount(), user.getId());
-  //   return recipe;
-  // }
-
   public static RecipeDto toPayload(Recipe recipe) {
     RecipeDto payload = new RecipeDto();
     payload.setId(recipe.getId());
@@ -104,6 +108,7 @@ public class RecipeService {
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
     payload.setCalorieStatus(recipe.getCalorieStatus());
+    payload.setCount(recipe.getCount());
     payload.setIngredientList(recipe.getIngredientList().stream()
       .map(t -> IngredientListService.toPayload(t))
       .collect(Collectors.toSet()));

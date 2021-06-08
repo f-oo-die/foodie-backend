@@ -41,8 +41,8 @@ public class Recipe extends EntityWithLongId {
   @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Set<IngredientList> ingredientList;
 
-  @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Counter> recipeCount;
+  @Column(name = "count", nullable = false)
+  private Integer count;
 
   @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   private Set<User> users;

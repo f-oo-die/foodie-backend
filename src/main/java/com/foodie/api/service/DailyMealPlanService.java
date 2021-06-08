@@ -21,6 +21,7 @@ public class DailyMealPlanService {
     private final DailyMealPlanRepository dailyMealPlanRepo;
     private final CreateDailyMealPlanService createDailyMealPlanService;
     private final UserService userService;
+    private final RecipeService recipeService;
 
     public List<DailyMealPlanDto> getDailyMealPlanList(Long userId){
         List<DailyMealPlan> dailyMealPlan= dailyMealPlanRepo.findDailyMealPlanofUser(userId);
@@ -44,19 +45,19 @@ public class DailyMealPlanService {
     }
 
     public DailyMealPlanDto save(DailyMealPlanDto payload, UserDto user) {
-        DailyMealPlan dailyMealPlan = fromPayload(payload);
+        DailyMealPlan dailyMealPlan = fromPayload(payload, user);
         dailyMealPlan.setUser(UserService.fromPayloadWithId(user));
         dailyMealPlan = dailyMealPlanRepo.save(dailyMealPlan);
 
         return toPayload(dailyMealPlan);
     }
 
-    private DailyMealPlan fromPayload(DailyMealPlanDto payload){
+    private DailyMealPlan fromPayload(DailyMealPlanDto payload, UserDto user){
         DailyMealPlan dailyMealPlan = new DailyMealPlan();
         dailyMealPlan.setDateId(Instant.now());
-        dailyMealPlan.setBreakfast(RecipeService.fromPayloadWithId(payload.getBreakfast()));
-        dailyMealPlan.setLunch(RecipeService.fromPayloadWithId(payload.getLunch()));
-        dailyMealPlan.setDinner(RecipeService.fromPayloadWithId(payload.getDinner()));
+        dailyMealPlan.setBreakfast(recipeService.updateCount(payload.getBreakfast()));
+        dailyMealPlan.setLunch(recipeService.updateCount(payload.getLunch()));
+        dailyMealPlan.setDinner(recipeService.updateCount(payload.getDinner()));
         return dailyMealPlan;
     }
 
