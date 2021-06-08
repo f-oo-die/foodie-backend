@@ -1,58 +1,60 @@
-package com.foodie.api.service;
+// ** Commented out because the counter entity was afterwards deleted and daily meal plan creation changed **
 
-import com.foodie.api.model.dto.CounterDto;
-import com.foodie.api.model.dto.RecipeDto;
-import com.foodie.api.model.entities.Recipe;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+// package com.foodie.api.service;
 
-import java.util.ArrayList;
-import java.util.List;
+// import com.foodie.api.model.dto.CounterDto;
+// import com.foodie.api.model.dto.RecipeDto;
+// import com.foodie.api.model.entities.Recipe;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+// import java.util.ArrayList;
+// import java.util.List;
 
-class CreateDailyMealPlanServiceTest {
+// import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    CreateDailyMealPlanService sut;
+// class CreateDailyMealPlanServiceTest {
 
-    @BeforeEach
-    void setUp() {
-        this.sut = new CreateDailyMealPlanService(null);
-    }
+//     CreateDailyMealPlanService sut;
 
-    private RecipeDto generateRecipe() {
-        CounterDto counterDto = new CounterDto();
-        counterDto.setCount(5);
+//     @BeforeEach
+//     void setUp() {
+//         this.sut = new CreateDailyMealPlanService(null);
+//     }
 
-        Recipe recipe = new Recipe();
-        recipe.setTitle("Random Recipe");
+//     private RecipeDto generateRecipe() {
+//         CounterDto counterDto = new CounterDto();
+//         counterDto.setCount(5);
 
-        RecipeDto recipeDto = new RecipeDto();
+//         Recipe recipe = new Recipe();
+//         recipe.setTitle("Random Recipe");
 
-        recipeDto.setId(recipe.getId());
-        recipeDto.setTitle(recipe.getTitle());
-        recipeDto.setPreparation(recipe.getPreparation());
-        recipeDto.setNumOfCalories(recipe.getNumOfCalories());
-        recipeDto.setTypeOfMeal(recipe.getTypeOfMeal());
-        recipeDto.setCalorieStatus(recipe.getCalorieStatus());
-        recipeDto.setRecipeCount(counterDto);
-        return recipeDto;
-    }
+//         RecipeDto recipeDto = new RecipeDto();
 
-    private List<RecipeDto> generateRecipeList() {
-        List<RecipeDto> recipes = new ArrayList<>();
-        recipes.add(generateRecipe());
-        recipes.add(generateRecipe());
-        recipes.add(generateRecipe());
-        recipes.add(generateRecipe());
-        recipes.add(generateRecipe());
-        return recipes;
-    }
+//         recipeDto.setId(recipe.getId());
+//         recipeDto.setTitle(recipe.getTitle());
+//         recipeDto.setPreparation(recipe.getPreparation());
+//         recipeDto.setNumOfCalories(recipe.getNumOfCalories());
+//         recipeDto.setTypeOfMeal(recipe.getTypeOfMeal());
+//         recipeDto.setCalorieStatus(recipe.getCalorieStatus());
+//         recipeDto.setRecipeCount(counterDto);
+//         return recipeDto;
+//     }
 
-    @Test
-    void chooseMeal() {
-        RecipeDto recipeDto = sut.chooseMeal(generateRecipeList(), null);
+//     private List<RecipeDto> generateRecipeList() {
+//         List<RecipeDto> recipes = new ArrayList<>();
+//         recipes.add(generateRecipe());
+//         recipes.add(generateRecipe());
+//         recipes.add(generateRecipe());
+//         recipes.add(generateRecipe());
+//         recipes.add(generateRecipe());
+//         return recipes;
+//     }
 
-        assertNotNull(recipeDto);
-    }
-}
+//     @Test
+//     void chooseMeal() {
+//         RecipeDto recipeDto = sut.chooseMeal(generateRecipeList(), null);
+
+//         assertNotNull(recipeDto);
+//     }
+// }
