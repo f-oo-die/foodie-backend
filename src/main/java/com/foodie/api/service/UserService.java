@@ -42,17 +42,19 @@ public class UserService {
             adminUser.setLastName(adminLastName);
             adminUser.setHeight(175);
             adminUser.setWeight(68);
+            adminUser.setProfileImageUrl("https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png");
             adminUser.setUserRole(UserRole.ADMIN);
             userRepository.save(adminUser);
         }
-
-
     }
 
     public UserDto getUser(Long id){
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
-            return toPayload(user.get());
+            if(user.get().getHeight() == null && user.get().getWeight() == null){
+                return toPartialPayload(user.get());
+            }
+        return toPayload(user.get());
         }
         throw new RuntimeException("User with id " + id + " does not exist!");
     }
@@ -90,6 +92,22 @@ public class UserService {
         return user;
     }
     
+    private UserDto toPartialPayload(User user) {
+        UserDto payload = new UserDto();
+        payload.setId(user.getId());
+        payload.setEmail(user.getEmail());
+        payload.setFirstName(user.getFirstName());
+        payload.setLastName(user.getLastName());
+        payload.setPassword(user.getPassword());
+        payload.setProfileImageUrl(user.getProfileImageUrl());
+        payload.setNutritionIssues(
+            user.getNutritionIssues().stream()
+            .map((t) -> NutritionIssueService.toPayload(t))
+            .collect(Collectors.toSet())
+        );
+        return payload;
+    }
+
     public static UserDto toPayload(User user) {
         UserDto payload = new UserDto();
         payload.setId(user.getId());

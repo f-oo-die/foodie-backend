@@ -25,6 +25,7 @@ public class UserDto {
   private Set<DailyMealPlanDto> dailyMealPlans;
 
   private Double getBMI(){
+    if (weight == null || height == null) return 0.0;
     return Double.valueOf(weight) / (Math.pow(height / 10, 2)) * 100;
   }
 
