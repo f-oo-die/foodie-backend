@@ -33,6 +33,9 @@ public class User extends EntityWithLongId{
     @Column(name = "height", nullable = true)
     private Integer height;
 
+    @Column(name = "profile_image_url", nullable = false)
+    private String profileImageUrl;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
 

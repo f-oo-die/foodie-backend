@@ -18,6 +18,7 @@ public class UserDto {
   private String password;
   private Integer weight;
   private Integer height;
+  private String profileImageUrl;
   private Set<ShoppingListDto> shoppingLists;
   private Set<NutritionIssueDto> nutritionIssues;
   private Set<RecipeDto> favoriteRecipes;

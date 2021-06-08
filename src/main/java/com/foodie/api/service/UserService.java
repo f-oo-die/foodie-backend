@@ -42,6 +42,7 @@ public class UserService {
         user.setPassword(payload.getPassword());
         user.setHeight(payload.getHeight());
         user.setWeight(payload.getWeight());
+        user.setProfileImageUrl(payload.getProfileImageUrl());
         user.setNutritionIssues(
             payload.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.fromPayloadWithId(t))
@@ -52,18 +53,8 @@ public class UserService {
 
     public static User fromPayloadWithId(UserDto payload){
         User user = new User();
+        user = fromPayload(payload);
         user.setId(payload.getId());
-        user.setEmail(payload.getEmail());
-        user.setFirstName(payload.getFirstName());
-        user.setLastName(payload.getLastName());
-        user.setPassword(payload.getPassword());
-        user.setHeight(payload.getHeight());
-        user.setWeight(payload.getWeight());
-        user.setNutritionIssues(
-            payload.getNutritionIssues().stream()
-            .map((t) -> NutritionIssueService.fromPayloadWithId(t))
-            .collect(Collectors.toSet())
-        );
         return user;
     }
     
@@ -76,6 +67,7 @@ public class UserService {
         payload.setPassword(user.getPassword());
         payload.setHeight(user.getHeight());
         payload.setWeight(user.getWeight());
+        payload.setProfileImageUrl(user.getProfileImageUrl());
         payload.setNutritionIssues(
             user.getNutritionIssues().stream()
             .map((t) -> NutritionIssueService.toPayload(t))

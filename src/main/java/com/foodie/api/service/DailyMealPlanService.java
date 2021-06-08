@@ -1,7 +1,8 @@
 package com.foodie.api.service;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.DailyMealPlanDto;
@@ -28,13 +29,13 @@ public class DailyMealPlanService {
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
     }
 
-    // public DailyMealPlanDto getDailyMealPlan(Long id){
-    //     Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findById(id);
-    //     if (dailyMealPlan.isPresent()){
-    //         return toPayload(dailyMealPlan.get());
-    //     }
-    //     throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
-    // }
+    public DailyMealPlanDto getDailyMealPlan(Long userId, Long id){
+        Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findByUserAndId(userId, id);
+        if (dailyMealPlan.isPresent()){
+            return toPayload(dailyMealPlan.get());
+        }
+        throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
+    }
 
     public DailyMealPlanDto create(Long userId){
         UserDto user = userService.getUser(userId);
@@ -54,7 +55,7 @@ public class DailyMealPlanService {
 
     private DailyMealPlan fromPayload(DailyMealPlanDto payload, UserDto user){
         DailyMealPlan dailyMealPlan = new DailyMealPlan();
-        dailyMealPlan.setDateId(Instant.now());
+        dailyMealPlan.setDate(LocalDate.now());
         dailyMealPlan.setBreakfast(recipeService.updateCount(payload.getBreakfast()));
         dailyMealPlan.setLunch(recipeService.updateCount(payload.getLunch()));
         dailyMealPlan.setDinner(recipeService.updateCount(payload.getDinner()));
@@ -64,7 +65,7 @@ public class DailyMealPlanService {
     public static DailyMealPlanDto toPayload(DailyMealPlan dailyMealPlan){
         DailyMealPlanDto payload = new DailyMealPlanDto();
         payload.setId(dailyMealPlan.getId());
-        payload.setDateId(dailyMealPlan.getDateId());
+        payload.setDate(dailyMealPlan.getDate());
         payload.setBreakfast(RecipeService.toPayload(dailyMealPlan.getBreakfast()));
         payload.setLunch(RecipeService.toPayload(dailyMealPlan.getLunch()));
         payload.setDinner(RecipeService.toPayload(dailyMealPlan.getDinner()));

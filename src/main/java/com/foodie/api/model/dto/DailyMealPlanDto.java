@@ -1,6 +1,6 @@
 package com.foodie.api.model.dto;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DailyMealPlanDto {
     private long id;
-    private Instant dateId;
+    private LocalDate date;
     private RecipeDto breakfast;
     private RecipeDto lunch;
     private RecipeDto dinner;

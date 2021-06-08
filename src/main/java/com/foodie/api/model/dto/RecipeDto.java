@@ -19,6 +19,8 @@ public class RecipeDto {
   private Integer typeOfMeal;
   private Integer calorieStatus;
   private Integer count;
+  private String thumbnailImageUrl;
+  private String mainImageUrl;
   private Set<IngredientListDto> ingredientList;
   private Set<NutritionIssueDto> nutritionIssues;
   private Set<DailyMealPlanDto> dailyMealPlan;

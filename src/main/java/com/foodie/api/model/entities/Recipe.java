@@ -38,6 +38,12 @@ public class Recipe extends EntityWithLongId {
   @Column(name = "calorie_status", nullable = false)
   private Integer calorieStatus;
 
+  @Column(name = "thumbnail_image_url", nullable = false)
+  private String thumbnailImageUrl;
+
+  @Column(name = "main_image_url", nullable = false)
+  private String mainImageUrl;
+
   @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Set<IngredientList> ingredientList;
 
