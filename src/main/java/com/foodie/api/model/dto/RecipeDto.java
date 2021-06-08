@@ -18,7 +18,7 @@ public class RecipeDto {
   private Integer numOfCalories;
   private Integer typeOfMeal;
   private Integer calorieStatus;
-  private CounterDto recipeCount;
+  private Set<CounterDto> recipeCount;
   private Set<IngredientListDto> ingredientList;
   private Set<NutritionIssueDto> nutritionIssues;
   private Set<DailyMealPlanDto> dailyMealPlan;
