@@ -64,9 +64,6 @@ public class RecipeService {
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
-    recipe.setRecipeCount(payload.getRecipeCount().stream()
-      .map(t -> CounterService.fromPayload(t))
-      .collect(Collectors.toSet()));
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
@@ -84,9 +81,6 @@ public class RecipeService {
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
-    recipe.setRecipeCount(payload.getRecipeCount().stream()
-      .map(t -> CounterService.fromPayloadWithId(t))
-      .collect(Collectors.toSet()));
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayloadWithId(t))
       .collect(Collectors.toSet()));
@@ -110,9 +104,6 @@ public class RecipeService {
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
     payload.setCalorieStatus(recipe.getCalorieStatus());
-    payload.setRecipeCount(recipe.getRecipeCount().stream()
-      .map(t -> CounterService.toPayload(t))
-      .collect(Collectors.toSet()));
     payload.setIngredientList(recipe.getIngredientList().stream()
       .map(t -> IngredientListService.toPayload(t))
       .collect(Collectors.toSet()));
