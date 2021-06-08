@@ -6,6 +6,7 @@ import com.foodie.api.model.dto.AuthenticationResponse;
 import com.foodie.api.model.dto.LoginRequest;
 import com.foodie.api.model.dto.RegisterRequest;
 import com.foodie.api.model.entities.User;
+import com.foodie.api.model.entities.UserRole;
 import com.foodie.api.repository.UserRepository;
 import com.foodie.api.security.JwtProvider;
 
@@ -40,7 +41,7 @@ public class AuthService {
         user.setLastName(registerRequest.getLastName());
         user.setHeight(175);
         user.setWeight(68);
-
+        user.setUserRole(UserRole.USER);
         userRepository.save(user);
     }
 
@@ -51,7 +52,7 @@ public class AuthService {
         String token = jwtProvider.generateToken(authenticate);
 
         Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
-        return new AuthenticationResponse(token, loginRequest.getEmail(), user.get().getId());
+        return new AuthenticationResponse(token, loginRequest.getEmail(), user.get().getId(), user.get().getUserRole());
     }
 
 }

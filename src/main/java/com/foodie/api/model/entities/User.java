@@ -36,6 +36,10 @@ public class User extends EntityWithLongId{
     @Column(name = "gender")
     private String gender;
 
+    @Column(name= "userRole")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ShoppingList> shoppingLists;
 
