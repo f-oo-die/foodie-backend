@@ -40,7 +40,7 @@ public class DailyMealPlanController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("{userId}/latest")
     public ResponseEntity<DailyMealPlanDto> get(
         @PathVariable Long userId
     ){
