@@ -41,7 +41,6 @@ public class AuthService {
         user.setLastName(registerRequest.getLastName());
         user.setHeight(175);
         user.setWeight(68);
-        user.setProfileImageUrl("https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png");
 
         user.setUserRole(UserRole.USER);
         userRepository.save(user);

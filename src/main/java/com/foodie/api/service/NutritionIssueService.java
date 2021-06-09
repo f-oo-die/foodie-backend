@@ -48,6 +48,9 @@ public class NutritionIssueService {
         return toPayload(nutritionIssue);
     }
 
+    public void delete(Long id) {
+        nutritionIssueRepository.deleteById(id);
+    }
 
     public static NutritionIssue fromPayload(NutritionIssueDto payload) {
         NutritionIssue nutritionIssue = new NutritionIssue();
