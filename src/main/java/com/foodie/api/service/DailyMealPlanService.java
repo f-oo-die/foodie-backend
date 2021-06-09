@@ -26,15 +26,8 @@ public class DailyMealPlanService {
 
     public List<DailyMealPlanDto> getDailyMealPlanList(Long userId){
         List<DailyMealPlan> dailyMealPlan= dailyMealPlanRepo.findDailyMealPlanofUser(userId);
+        dailyMealPlan.remove(0);
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
-    }
-
-    public DailyMealPlanDto getDailyMealPlan(Long userId, Long id){
-        Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findByUserAndId(userId, id);
-        if (dailyMealPlan.isPresent()){
-            return toPayload(dailyMealPlan.get());
-        }
-        throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
     }
 
     public DailyMealPlanDto getLatestDailyMealPlan(Long userId){
@@ -42,7 +35,7 @@ public class DailyMealPlanService {
         if (dailyMealPlan.isPresent()){
             return toPayload(dailyMealPlan.get());
         }
-        throw new RuntimeException("Error in getting the latest daily meal plan of user with id " + userId);
+        return create(userId);
     }
 
     public DailyMealPlanDto create(Long userId){
