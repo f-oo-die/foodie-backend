@@ -51,6 +51,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "**")
                 .permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/meal-planning")
+                .permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/meal-planning/*")
+                .permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/meal-planning/*/*")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/meal-planning")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/meal-planning/*")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/meal-planning/*/*")
+                .permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",

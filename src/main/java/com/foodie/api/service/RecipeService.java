@@ -63,7 +63,7 @@ public class RecipeService {
   }
 
   public Recipe updateCount(RecipeDto payload){
-    Recipe recipe = fromPayloadWithId(payload);
+    Recipe recipe = fromPayload(payload);
     recipe.setCount(recipe.getCount()+1);
     recipe = recipeRepo.save(recipe);
     return recipe;
@@ -71,6 +71,7 @@ public class RecipeService {
 
   public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
+    if (payload.getId() != null) recipe.setId(payload.getId());
     recipe.setTitle(payload.getTitle());
     recipe.setPreparation(payload.getPreparation());
     recipe.setNumOfCalories(payload.getNumOfCalories());
@@ -83,15 +84,8 @@ public class RecipeService {
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
     recipe.setNutritionIssues(payload.getNutritionIssues().stream()
-      .map(t -> NutritionIssueService.fromPayloadWithId(t))
+      .map(t -> NutritionIssueService.fromPayload(t))
       .collect(Collectors.toSet()));
-    return recipe;
-  }
-
-  public static Recipe fromPayloadWithId(RecipeDto payload) {
-    Recipe recipe = new Recipe();
-    recipe = fromPayload(payload);
-    recipe.setId(payload.getId());
     return recipe;
   }
 

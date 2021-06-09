@@ -37,6 +37,14 @@ public class DailyMealPlanService {
         throw new RuntimeException("DailyMealPlan with id" + id + "is not present!");
     }
 
+    public DailyMealPlanDto getLatestDailyMealPlan(Long userId){
+        Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findLatestDailyMealPlanofUser(userId);
+        if (dailyMealPlan.isPresent()){
+            return toPayload(dailyMealPlan.get());
+        }
+        throw new RuntimeException("Error in getting the latest daily meal plan of user with id " + userId);
+    }
+
     public DailyMealPlanDto create(Long userId){
         UserDto user = userService.getUser(userId);
         DailyMealPlanDto dailyMealPlan = new DailyMealPlanDto();
@@ -47,7 +55,7 @@ public class DailyMealPlanService {
 
     public DailyMealPlanDto save(DailyMealPlanDto payload, UserDto user) {
         DailyMealPlan dailyMealPlan = fromPayload(payload, user);
-        dailyMealPlan.setUser(UserService.fromPayloadWithId(user));
+        dailyMealPlan.setUser(UserService.fromPayload(user));
         dailyMealPlan = dailyMealPlanRepo.save(dailyMealPlan);
 
         return toPayload(dailyMealPlan);

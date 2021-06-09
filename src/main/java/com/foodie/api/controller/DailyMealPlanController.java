@@ -40,6 +40,14 @@ public class DailyMealPlanController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @GetMapping("{userId}/latest")
+    public ResponseEntity<DailyMealPlanDto> get(
+        @PathVariable Long userId
+    ){
+        DailyMealPlanDto result = service.getLatestDailyMealPlan(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @PostMapping("{userId}")
     public ResponseEntity<DailyMealPlanDto> save(
         @PathVariable Long userId

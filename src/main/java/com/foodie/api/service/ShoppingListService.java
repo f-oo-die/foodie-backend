@@ -69,10 +69,10 @@ public class ShoppingListService {
 
     public static ShoppingList fromPayload(ShoppingListDto payload) {
         ShoppingList shoppingList = new ShoppingList();
-        shoppingList.setUser(UserService.fromPayloadWithId(payload.getUser()));
+        shoppingList.setUser(UserService.fromPayload(payload.getUser()));
         shoppingList.setIngredients(payload.getIngredients()
                 .stream()
-                .map(t -> IngredientService.fromPayloadWithId(t))
+                .map(t -> IngredientService.fromPayload(t))
                 .collect(Collectors.toSet()));
         return shoppingList;
     }
