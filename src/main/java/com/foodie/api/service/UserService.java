@@ -42,6 +42,7 @@ public class UserService {
             adminUser.setLastName(adminLastName);
             adminUser.setHeight(175);
             adminUser.setWeight(68);
+            adminUser.setProfileImageUrl("https://image.dnevnik.hr/media/images/1920x1080/Mar2020/61855053-lzn.jpg");
             adminUser.setUserRole(UserRole.ADMIN);
             userRepository.save(adminUser);
         }
