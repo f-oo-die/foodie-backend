@@ -55,7 +55,7 @@ public class DailyMealPlanService {
 
     public DailyMealPlanDto save(DailyMealPlanDto payload, UserDto user) {
         DailyMealPlan dailyMealPlan = fromPayload(payload, user);
-        dailyMealPlan.setUser(UserService.fromPayloadWithId(user));
+        dailyMealPlan.setUser(UserService.fromPayload(user));
         dailyMealPlan = dailyMealPlanRepo.save(dailyMealPlan);
 
         return toPayload(dailyMealPlan);

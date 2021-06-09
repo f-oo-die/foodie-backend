@@ -70,6 +70,7 @@ public class UserService {
 
     public static User fromPayload(UserDto payload){
         User user = new User();
+        if (payload.getId() != null) user.setId(payload.getId());
         user.setEmail(payload.getEmail());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
@@ -79,16 +80,9 @@ public class UserService {
         user.setProfileImageUrl(payload.getProfileImageUrl());
         user.setNutritionIssues(
             payload.getNutritionIssues().stream()
-            .map((t) -> NutritionIssueService.fromPayloadWithId(t))
+            .map((t) -> NutritionIssueService.fromPayload(t))
             .collect(Collectors.toSet())
         );
-        return user;
-    }
-
-    public static User fromPayloadWithId(UserDto payload){
-        User user = new User();
-        user = fromPayload(payload);
-        user.setId(payload.getId());
         return user;
     }
     
