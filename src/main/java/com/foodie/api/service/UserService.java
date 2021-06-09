@@ -50,12 +50,7 @@ public class UserService {
 
     public UserDto getUser(Long id){
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            if(user.get().getHeight() == null && user.get().getWeight() == null){
-                return toPartialPayload(user.get());
-            }
-        return toPayload(user.get());
-        }
+        if (user.isPresent()) return toPayload(user.get());
         throw new RuntimeException("User with id " + id + " does not exist!");
     }
 
@@ -74,6 +69,9 @@ public class UserService {
         user.setEmail(payload.getEmail());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
+        if(payload.getWeight() != null) user.setWeight(payload.getWeight());
+        if(payload.getHeight() != null) user.setHeight(payload.getHeight());
+        if(payload.getProfileImageUrl() != null) user.setProfileImageUrl(payload.getProfileImageUrl());
         user.setPassword(payload.getPassword());
         user.setHeight(payload.getHeight());
         user.setWeight(payload.getWeight());
@@ -84,22 +82,6 @@ public class UserService {
             .collect(Collectors.toSet())
         );
         return user;
-    }
-    
-    private UserDto toPartialPayload(User user) {
-        UserDto payload = new UserDto();
-        payload.setId(user.getId());
-        payload.setEmail(user.getEmail());
-        payload.setFirstName(user.getFirstName());
-        payload.setLastName(user.getLastName());
-        payload.setPassword(user.getPassword());
-        payload.setProfileImageUrl(user.getProfileImageUrl());
-        payload.setNutritionIssues(
-            user.getNutritionIssues().stream()
-            .map((t) -> NutritionIssueService.toPayload(t))
-            .collect(Collectors.toSet())
-        );
-        return payload;
     }
 
     public static UserDto toPayload(User user) {
