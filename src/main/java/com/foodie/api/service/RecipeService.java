@@ -58,6 +58,10 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
+  public void delete(Long id) {
+    recipeRepo.deleteById(id);
+  }
+
   public Recipe updateCount(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
     recipe.setCount(recipe.getCount()+1);

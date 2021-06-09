@@ -33,7 +33,7 @@ public class User extends EntityWithLongId{
     @Column(name = "height", nullable = true)
     private Integer height;
 
-    @Column(name = "profile_image_url", nullable = false)
+    @Column(name = "profile_image_url")
     private String profileImageUrl;
 
     @Column(name= "userRole")
