@@ -38,6 +38,9 @@ public class Recipe extends EntityWithLongId {
   @Column(name = "calorie_status", nullable = false)
   private Integer calorieStatus;
 
+  @Column(name = "prep_time", nullable = false)
+  private Integer preparationTime;
+
   @Column(name = "thumbnail_image_url", nullable = false)
   private String thumbnailImageUrl;
 
