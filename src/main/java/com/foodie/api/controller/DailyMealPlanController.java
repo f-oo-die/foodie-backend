@@ -31,13 +31,13 @@ public class DailyMealPlanController {
         return ResponseEntity.status(HttpStatus.OK).body(allPlans);
     }
 
-    // @GetMapping("{id}")
-    // public ResponseEntity<DailyMealPlanDto> get(
-    //     @PathVariable Long id
-    // ){
-    //     DailyMealPlanDto result = service.getDailyMealPlan(id);
-    //     return ResponseEntity.status(HttpStatus.OK).body(result);
-    // }
+    @GetMapping("{userId}/latest")
+    public ResponseEntity<DailyMealPlanDto> get(
+        @PathVariable Long userId
+    ){
+        DailyMealPlanDto result = service.getLatestDailyMealPlan(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
     @PostMapping("{userId}")
     public ResponseEntity<DailyMealPlanDto> save(

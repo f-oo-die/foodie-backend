@@ -47,17 +47,13 @@ public class IngredientService {
     return toPayload(ingredient);
   }
 
-  public static Ingredient fromPayload(IngredientDto payload) {
-    Ingredient ingredient = new Ingredient();
-    ingredient.setIngredientName(payload.getIngredientName());
-    ingredient.setCaloricValue(payload.getCaloricValue());
-    ingredient.setNutritionalValue(payload.getNutritionalValue());
-    return ingredient;
+  public void delete(Long id) {
+    ingredientRepo.deleteById(id);
   }
 
-  public static Ingredient fromPayloadWithId(IngredientDto payload) {
+  public static Ingredient fromPayload(IngredientDto payload) {
     Ingredient ingredient = new Ingredient();
-    ingredient.setId(payload.getId());
+    if (payload.getId() != null) ingredient.setId(payload.getId());
     ingredient.setIngredientName(payload.getIngredientName());
     ingredient.setCaloricValue(payload.getCaloricValue());
     ingredient.setNutritionalValue(payload.getNutritionalValue());

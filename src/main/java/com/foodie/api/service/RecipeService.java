@@ -40,6 +40,7 @@ public class RecipeService {
 
   public RecipeDto save(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
+    recipe.setCount(0);
     recipe = recipeRepo.save(recipe);
     for (IngredientList ingredientList : recipe.getIngredientList()) {
       ingredientList.setRecipe(recipe);
@@ -57,37 +58,34 @@ public class RecipeService {
     return toPayload(recipe);
   }
 
-  public static Recipe fromPayload(RecipeDto payload) {
-    Recipe recipe = new Recipe();
-    recipe.setTitle(payload.getTitle());
-    recipe.setPreparation(payload.getPreparation());
-    recipe.setNumOfCalories(payload.getNumOfCalories());
-    recipe.setTypeOfMeal(payload.getTypeOfMeal());
-    recipe.setCalorieStatus(payload.getCalorieStatus());
-    recipe.setRecipeCount(CounterService.fromPayload(payload.getRecipeCount()));
-    recipe.setIngredientList(payload.getIngredientList().stream()
-      .map(t -> IngredientListService.fromPayload(t))
-      .collect(Collectors.toSet()));
-    recipe.setNutritionIssues(payload.getNutritionIssues().stream()
-      .map(t -> NutritionIssueService.fromPayloadWithId(t))
-      .collect(Collectors.toSet()));
+  public void delete(Long id) {
+    recipeRepo.deleteById(id);
+  }
+
+  public Recipe updateCount(RecipeDto payload){
+    Recipe recipe = fromPayload(payload);
+    recipe.setCount(recipe.getCount()+1);
+    recipe = recipeRepo.save(recipe);
     return recipe;
   }
 
-  public static Recipe fromPayloadWithId(RecipeDto payload) {
+  public static Recipe fromPayload(RecipeDto payload) {
     Recipe recipe = new Recipe();
-    recipe.setId(payload.getId());
+    if (payload.getId() != null) recipe.setId(payload.getId());
     recipe.setTitle(payload.getTitle());
     recipe.setPreparation(payload.getPreparation());
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
-    recipe.setRecipeCount(CounterService.fromPayload(payload.getRecipeCount()));
+    recipe.setPreparationTime(payload.getPreparationTime());
+    recipe.setCount(payload.getCount());
+    recipe.setThumbnailImageUrl(payload.getThumbnailImageUrl());
+    recipe.setMainImageUrl(payload.getMainImageUrl());
     recipe.setIngredientList(payload.getIngredientList().stream()
       .map(t -> IngredientListService.fromPayload(t))
       .collect(Collectors.toSet()));
     recipe.setNutritionIssues(payload.getNutritionIssues().stream()
-      .map(t -> NutritionIssueService.fromPayloadWithId(t))
+      .map(t -> NutritionIssueService.fromPayload(t))
       .collect(Collectors.toSet()));
     return recipe;
   }
@@ -100,7 +98,10 @@ public class RecipeService {
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
     payload.setCalorieStatus(recipe.getCalorieStatus());
-    payload.setRecipeCount(CounterService.toPayload(recipe.getRecipeCount()));
+    payload.setPreparationTime(recipe.getPreparationTime());
+    payload.setCount(recipe.getCount());
+    payload.setThumbnailImageUrl(recipe.getThumbnailImageUrl());
+    payload.setMainImageUrl(recipe.getMainImageUrl());
     payload.setIngredientList(recipe.getIngredientList().stream()
       .map(t -> IngredientListService.toPayload(t))
       .collect(Collectors.toSet()));
