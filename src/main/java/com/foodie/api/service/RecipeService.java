@@ -77,6 +77,7 @@ public class RecipeService {
     recipe.setNumOfCalories(payload.getNumOfCalories());
     recipe.setTypeOfMeal(payload.getTypeOfMeal());
     recipe.setCalorieStatus(payload.getCalorieStatus());
+    recipe.setPreparationTime(payload.getPreparationTime());
     recipe.setCount(payload.getCount());
     recipe.setThumbnailImageUrl(payload.getThumbnailImageUrl());
     recipe.setMainImageUrl(payload.getMainImageUrl());
@@ -97,6 +98,7 @@ public class RecipeService {
     payload.setNumOfCalories(recipe.getNumOfCalories());
     payload.setTypeOfMeal(recipe.getTypeOfMeal());
     payload.setCalorieStatus(recipe.getCalorieStatus());
+    payload.setPreparationTime(recipe.getPreparationTime());
     payload.setCount(recipe.getCount());
     payload.setThumbnailImageUrl(recipe.getThumbnailImageUrl());
     payload.setMainImageUrl(recipe.getMainImageUrl());
