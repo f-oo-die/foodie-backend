@@ -76,6 +76,10 @@ public class RecipeService {
     Recipe recipe = fromPayload(payload);
     recipe.setCount(recipe.getCount()+1);
     recipe = recipeRepo.save(recipe);
+    for (IngredientList ingredientList : recipe.getIngredientList()) {
+      ingredientList.setRecipe(recipe);
+      ingredientListRepository.save(ingredientList);
+    }
     return recipe;
   }
 
