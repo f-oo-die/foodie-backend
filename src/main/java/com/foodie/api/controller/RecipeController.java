@@ -25,6 +25,13 @@ public class RecipeController {
 
     return ResponseEntity.status(HttpStatus.OK).body(allRecipes);
   }
+
+  @GetMapping("homepage")
+  public ResponseEntity<Collection<RecipeDto>> getLimited(){
+    Collection<RecipeDto> recipes = service.getLimited();
+
+    return ResponseEntity.status(HttpStatus.OK).body(recipes);
+  }
   
   @GetMapping("/{id}")
   public ResponseEntity<RecipeDto> get(
