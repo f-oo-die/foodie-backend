@@ -26,11 +26,11 @@ public class CreateDailyMealPlanService {
 
     Integer calorieStatus = user.getRecommendedCalorieStatus();
     List<Long> userNutritionIssueIds = getUserNutritionIssueIds(user);
-    RecipeDto breakfast = getFilteredRecipes(user, 0, calorieStatus, userNutritionIssueIds);
-    RecipeDto lunch = getFilteredRecipes(user, 1, calorieStatus, userNutritionIssueIds);
-    RecipeDto dinner = getFilteredRecipes(user, 2, calorieStatus, userNutritionIssueIds);
+    RecipeDto breakfast = getFilteredRecipe(0, calorieStatus, userNutritionIssueIds);
+    RecipeDto lunch = getFilteredRecipe(1, calorieStatus, userNutritionIssueIds);
+    RecipeDto dinner = getFilteredRecipe(2, calorieStatus, userNutritionIssueIds);
 
-    plan = setDailyMealPlan(plan, breakfast, lunch, dinner);
+    plan = setDailyMealPlan(user, plan, breakfast, lunch, dinner);
 
     return plan;
   }
@@ -43,16 +43,17 @@ public class CreateDailyMealPlanService {
     return nutritionissueIds;
   }
 
-  private DailyMealPlanDto setDailyMealPlan(DailyMealPlanDto plan, RecipeDto breakfast, RecipeDto lunch,
+  private DailyMealPlanDto setDailyMealPlan(UserDto user, DailyMealPlanDto plan, RecipeDto breakfast, RecipeDto lunch,
       RecipeDto dinner) {
+    plan.setUser(user);
     plan.setBreakfast(breakfast);
     plan.setLunch(lunch);
     plan.setDinner(dinner);
     return plan;
   }
 
-  public RecipeDto getFilteredRecipes(UserDto user, Integer recipeType, Integer calorieStatus, List<Long> userNutritionIssueIds){
-    Optional<Recipe> recipe = recipeRepo.findFilteredRecipes(recipeType, calorieStatus, userNutritionIssueIds);
+  public RecipeDto getFilteredRecipe(Integer recipeType, Integer calorieStatus, List<Long> userNutritionIssueIds){
+    Optional<Recipe> recipe = recipeRepo.findFilteredRecipe(recipeType, calorieStatus, userNutritionIssueIds);
     if(recipe.isPresent()) return RecipeService.toPayload(recipe.get());
     throw new RuntimeException("Database does not contain recipe with filtered preferences!");
   }
