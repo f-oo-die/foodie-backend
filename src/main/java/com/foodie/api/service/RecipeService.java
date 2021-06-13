@@ -38,6 +38,12 @@ public class RecipeService {
     throw new RuntimeException("Recipe with id " + id + " does not exist!");
   }
 
+  public Collection<RecipeDto> getLimited() {
+    return recipeRepo.findTop9ByOrderByCountDesc().stream()
+    .map(t -> toPayload(t))
+    .collect(Collectors.toList());
+  }
+
   public RecipeDto save(RecipeDto payload){
     Recipe recipe = fromPayload(payload);
     recipe.setCount(0);
@@ -70,6 +76,10 @@ public class RecipeService {
     Recipe recipe = fromPayload(payload);
     recipe.setCount(recipe.getCount()+1);
     recipe = recipeRepo.save(recipe);
+    for (IngredientList ingredientList : recipe.getIngredientList()) {
+      ingredientList.setRecipe(recipe);
+      ingredientListRepository.save(ingredientList);
+    }
     return recipe;
   }
 
