@@ -18,5 +18,4 @@ public class DailyMealPlanDto {
     private RecipeDto lunch;
     private RecipeDto dinner;
     private UserDto user;
-    private Integer rating;
 }

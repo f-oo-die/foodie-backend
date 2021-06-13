@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface DailyMealPlanRepository extends JpaRepository<DailyMealPlan, Long> {
-    @Query(value = "SELECT p.id, p.date, p.user_id, p.rating, p.breakfast_id, p.lunch_id, p.dinner_id FROM daily_meal_plans p WHERE p.user_id = ?1 ORDER BY id Desc", nativeQuery = true)
+    @Query(value = "SELECT p.id, p.date, p.user_id, p.breakfast_id, p.lunch_id, p.dinner_id FROM daily_meal_plans p WHERE p.user_id = ?1 ORDER BY id Desc", nativeQuery = true)
     List<DailyMealPlan> findDailyMealPlanofUser(Long id);
 
-    @Query(value = "SELECT p.id, p.date, p.user_id, p.rating, p.breakfast_id, p.lunch_id, p.dinner_id FROM daily_meal_plans p WHERE p.user_id = ?1 ORDER BY id Desc LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT p.id, p.date, p.user_id, p.breakfast_id, p.lunch_id, p.dinner_id FROM daily_meal_plans p WHERE p.user_id = ?1 ORDER BY id Desc LIMIT 1", nativeQuery = true)
     Optional<DailyMealPlan> findLatestDailyMealPlanofUser(Long id);
 }

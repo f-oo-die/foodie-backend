@@ -28,9 +28,6 @@ public class DailyMealPlan extends EntityWithLongId {
   @Column(name = "date", nullable = false)
   private LocalDate date;
 
-  @Column(name = "rating", nullable = true)
-  private Integer rating;
-
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinColumn(name = "breakfast_id", referencedColumnName = "id")
   private Recipe breakfast;
