@@ -39,7 +39,7 @@ public class RecipeService {
   }
 
   public Collection<RecipeDto> getLimited() {
-    return recipeRepo.findTop9ByOrderByCountDesc().stream()
+    return recipeRepo.findTop6ByOrderByCountDesc().stream()
     .map(t -> toPayload(t))
     .collect(Collectors.toList());
   }
