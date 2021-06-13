@@ -1,9 +1,9 @@
-package com.foodie.api.controller.admin;
+package com.foodie.api.controller;
 
 import java.util.Collection;
 
-import com.foodie.api.model.dto.IngredientDto;
-import com.foodie.api.service.IngredientService;
+import com.foodie.api.model.dto.CommentDto;
+import com.foodie.api.service.CommentService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,43 +19,39 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/admin/ingredients")
+@RequestMapping("/comments")
 @RequiredArgsConstructor
-public class IngredientAdminController {
+public class CommentController {
 
-  private final IngredientService service;
+  private final CommentService service;
 
-  @GetMapping
-  public ResponseEntity<Collection<IngredientDto>> getAll(){
-    Collection<IngredientDto> allIngredients = service.getAll();
+  @GetMapping("/{recipeId}")
+  public ResponseEntity<Collection<CommentDto>> getAll(
+    @PathVariable Long recipeId
+  ){
+    Collection<CommentDto> allComments = service.getAll(recipeId);
 
-    return ResponseEntity.status(HttpStatus.OK).body(allIngredients);
+    return ResponseEntity.status(HttpStatus.OK).body(allComments);
   }
     
-  @GetMapping("/{id}")
-  public ResponseEntity<IngredientDto> get(
-    @PathVariable Long id
+  @PostMapping("/{recipeId}")
+  public ResponseEntity<CommentDto> save(
+    @PathVariable Long recipeId,
+    @RequestBody CommentDto comment
   ){
-    IngredientDto result = service.getIngredient(id);
+    CommentDto result = service.save(recipeId, comment);
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
-  @PostMapping
-  public ResponseEntity<IngredientDto> save(
-      @RequestBody IngredientDto ingredient
-  ){
-    IngredientDto result = service.save(ingredient);
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
-
-  @PutMapping("/{id}")
-  public ResponseEntity<IngredientDto> update(
+  @PutMapping("/{recipeId}/{id}")
+  public ResponseEntity<CommentDto> update(
+      @PathVariable Long recipeId,
       @PathVariable Long id,
-      @RequestBody IngredientDto ingredient
+      @RequestBody CommentDto comment
   ){
-      IngredientDto result = service.update(id, ingredient);
+      CommentDto result = service.update(recipeId, id, comment);
       return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(
@@ -63,5 +59,5 @@ public class IngredientAdminController {
    ) {
       service.delete(id);
       return ResponseEntity.noContent().build();
-  }
+    }
 }

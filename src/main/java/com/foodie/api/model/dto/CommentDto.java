@@ -1,5 +1,6 @@
 package com.foodie.api.model.dto;
-import java.util.Set;
+
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +11,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingListDto {
-    private Long id;
-    private String title;
-    private UserDto user;
-    private Set<IngredientDto> ingredients;
+public class CommentDto {
+  private Long id;
+  private String comment;
+  private LocalDateTime datetime;
+  private UserDto user;
+  private RecipeDto recipe;
 }

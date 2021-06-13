@@ -27,5 +27,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
   @Query(value = "DELETE FROM users_favorite_recipes WHERE users_id = ?1 AND favorite_recipes_id = ?2", nativeQuery = true)
   void deleteRelationship(Long userId, Long recipeId);
 
-  List<Recipe> findTop9ByOrderByCountDesc();
+  List<Recipe> findTop6ByOrderByCountDesc();
 }

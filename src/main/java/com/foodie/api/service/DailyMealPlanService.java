@@ -26,7 +26,7 @@ public class DailyMealPlanService {
 
     public List<DailyMealPlanDto> getDailyMealPlanList(Long userId){
         List<DailyMealPlan> dailyMealPlan= dailyMealPlanRepo.findDailyMealPlanofUser(userId);
-        dailyMealPlan.remove(0);
+        if (!dailyMealPlan.isEmpty()) dailyMealPlan.remove(0);
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
     }
 
@@ -35,7 +35,7 @@ public class DailyMealPlanService {
         if (dailyMealPlan.isPresent()){
             return toPayload(dailyMealPlan.get());
         }
-        return create(userId);
+        return null;
     }
 
     public DailyMealPlanDto create(Long userId){
