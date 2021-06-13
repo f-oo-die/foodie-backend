@@ -3,6 +3,7 @@ package com.foodie.api.model.entities;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,6 +21,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ShoppingList extends EntityWithLongId{
+
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

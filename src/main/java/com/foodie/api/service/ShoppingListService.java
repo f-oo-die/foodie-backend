@@ -1,18 +1,18 @@
 package com.foodie.api.service;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.foodie.api.model.dto.IngredientDto;
 import com.foodie.api.model.dto.ShoppingListDto;
+import com.foodie.api.model.dto.UserDto;
 import com.foodie.api.model.entities.ShoppingList;
 import com.foodie.api.repository.ShoppingListRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,11 +30,10 @@ public class ShoppingListService {
                 .collect(Collectors.toList());
     }
 
-    public ShoppingListDto save(Long userId) {
-        ShoppingListDto shoppingList = new ShoppingListDto();
-        shoppingList.setUser(userService.getUser(userId));
-        shoppingList.setIngredients(new HashSet<>());
-        ShoppingList dbShoppingList = fromPayload(shoppingList);
+    public ShoppingListDto save(Long userId, ShoppingListDto payload) {
+        UserDto user = userService.getUser(userId);
+        payload.setUser(user);
+        ShoppingList dbShoppingList = fromPayload(payload);
         dbShoppingList = shoppingListRepo.save(dbShoppingList);
 
         return toPayload(dbShoppingList);
@@ -69,6 +68,7 @@ public class ShoppingListService {
 
     public static ShoppingList fromPayload(ShoppingListDto payload) {
         ShoppingList shoppingList = new ShoppingList();
+        shoppingList.setTitle(payload.getTitle());
         shoppingList.setUser(UserService.fromPayload(payload.getUser()));
         shoppingList.setIngredients(payload.getIngredients()
                 .stream()
@@ -80,6 +80,7 @@ public class ShoppingListService {
     public static ShoppingListDto toPayload(ShoppingList shoppingList){
         ShoppingListDto payload = new ShoppingListDto();
         payload.setId(shoppingList.getId());
+        payload.setTitle(shoppingList.getTitle());
         payload.setUser(UserService.toPayload(shoppingList.getUser()));
         payload.setIngredients(shoppingList.getIngredients()
                 .stream()
