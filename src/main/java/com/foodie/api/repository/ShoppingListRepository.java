@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
-  @Query(value = "SELECT s.id, s.user_id FROM shopping_lists s WHERE s.user_id = ?1", nativeQuery = true)
+  @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1", nativeQuery = true)
   List<ShoppingList> findShoppingListsOfUser(Long userId);
 
-  @Query(value = "SELECT s.id, s.user_id FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
+  @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
   Optional<ShoppingList> findByIdAndUserId(Long userId, Long id);
 
   @Modifying

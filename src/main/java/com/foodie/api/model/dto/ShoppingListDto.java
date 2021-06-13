@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ShoppingListDto {
     private Long id;
+    private String title;
     private UserDto user;
     private Set<IngredientDto> ingredients;
 }
