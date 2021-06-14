@@ -19,21 +19,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-  private final UserService service;
+    private final UserService service;
 
-  @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDto> get(
-        @PathVariable Long id
-    ){
+            @PathVariable Long id
+    ) {
         UserDto result = service.getUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> update(
-        @PathVariable Long id,
-        @RequestBody UserDto user
-    ){
+            @PathVariable Long id,
+            @RequestBody UserDto user
+    ) {
         UserDto result = service.update(id, user);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

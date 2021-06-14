@@ -17,28 +17,28 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class RecipeController {
 
-  private final RecipeService service;
+    private final RecipeService service;
 
-  @GetMapping
-  public ResponseEntity<Collection<RecipeDto>> getAll(){
-    Collection<RecipeDto> allRecipes = service.getAll();
+    @GetMapping
+    public ResponseEntity<Collection<RecipeDto>> getAll() {
+        Collection<RecipeDto> allRecipes = service.getAll();
 
-    return ResponseEntity.status(HttpStatus.OK).body(allRecipes);
-  }
+        return ResponseEntity.status(HttpStatus.OK).body(allRecipes);
+    }
 
-  @GetMapping("homepage")
-  public ResponseEntity<Collection<RecipeDto>> getLimited(){
-    Collection<RecipeDto> recipes = service.getLimited();
+    @GetMapping("homepage")
+    public ResponseEntity<Collection<RecipeDto>> getLimited() {
+        Collection<RecipeDto> recipes = service.getLimited();
 
-    return ResponseEntity.status(HttpStatus.OK).body(recipes);
-  }
-  
-  @GetMapping("/{id}")
-  public ResponseEntity<RecipeDto> get(
-    @PathVariable Long id
-  ){
-    RecipeDto result = service.getRecipe(id);
+        return ResponseEntity.status(HttpStatus.OK).body(recipes);
+    }
 
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<RecipeDto> get(
+            @PathVariable Long id
+    ) {
+        RecipeDto result = service.getRecipe(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

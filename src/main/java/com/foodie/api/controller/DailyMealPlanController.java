@@ -24,8 +24,8 @@ public class DailyMealPlanController {
 
     @GetMapping("{userId}")
     public ResponseEntity<Collection<DailyMealPlanDto>> getDailyMealPlanList(
-        @PathVariable Long userId
-    ){
+            @PathVariable Long userId
+    ) {
         Collection<DailyMealPlanDto> allPlans = service.getDailyMealPlanList(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(allPlans);
@@ -33,19 +33,19 @@ public class DailyMealPlanController {
 
     @GetMapping("{userId}/latest")
     public ResponseEntity<DailyMealPlanDto> get(
-        @PathVariable Long userId
-    ){
+            @PathVariable Long userId
+    ) {
         DailyMealPlanDto result = service.getLatestDailyMealPlan(userId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("{userId}")
     public ResponseEntity<DailyMealPlanDto> save(
-        @PathVariable Long userId
-    ){
+            @PathVariable Long userId
+    ) {
         DailyMealPlanDto result = service.create(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    }
 }
 

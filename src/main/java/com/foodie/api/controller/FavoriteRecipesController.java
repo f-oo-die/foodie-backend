@@ -21,12 +21,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FavoriteRecipesController {
 
-  private final FavoriteRecipesService service;
+    private final FavoriteRecipesService service;
 
     @GetMapping("{userId}")
     public ResponseEntity<Collection<RecipeDto>> getAll(
-        @PathVariable Long userId
-    ){
+            @PathVariable Long userId
+    ) {
         Collection<RecipeDto> favoriteRecipes = service.getAll(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(favoriteRecipes);
@@ -34,24 +34,24 @@ public class FavoriteRecipesController {
 
     @PostMapping("{userId}/{recipeId}")
     public ResponseEntity<Object> save(
-        @PathVariable Long userId,
-        @PathVariable Long recipeId){
+            @PathVariable Long userId,
+            @PathVariable Long recipeId) {
         return ResponseEntity.status(HttpStatus.OK).body(service.save(userId, recipeId));
     }
 
     @GetMapping("/{userId}/{recipeId}")
     public ResponseEntity<RecipeDto> get(
-        @PathVariable Long userId,
-        @PathVariable Long recipeId
-    ){
+            @PathVariable Long userId,
+            @PathVariable Long recipeId
+    ) {
         RecipeDto result = service.getFavoriteRecipe(userId, recipeId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/{userId}/{recipeId}")
     public ResponseEntity<Object> delete(
-        @PathVariable Long userId,
-        @PathVariable Long recipeId
+            @PathVariable Long userId,
+            @PathVariable Long recipeId
     ) {
         service.delete(userId, recipeId);
         return ResponseEntity.noContent().build();

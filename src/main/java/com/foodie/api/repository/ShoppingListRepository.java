@@ -12,19 +12,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
-  @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1", nativeQuery = true)
-  List<ShoppingList> findShoppingListsOfUser(Long userId);
+    @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1", nativeQuery = true)
+    List<ShoppingList> findShoppingListsOfUser(Long userId);
 
-  @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
-  Optional<ShoppingList> findByIdAndUserId(Long userId, Long id);
+    @Query(value = "SELECT s.id, s.title, s.user_id FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
+    Optional<ShoppingList> findByIdAndUserId(Long userId, Long id);
 
-  @Modifying
-  @Query(value = "DELETE FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
-  void deleteByUserIdAndId(Long userId, Long id);
+    @Modifying
+    @Query(value = "DELETE FROM shopping_lists s WHERE s.user_id = ?1 AND s.id = ?2", nativeQuery = true)
+    void deleteByUserIdAndId(Long userId, Long id);
 
-  @Modifying
-  @Query(value = "DELETE FROM shopping_lists_ingredients s WHERE s.shopping_lists_id = ?1 AND s.ingredients_id = ?2", nativeQuery = true)
-  void deleteRelationship(Long id, Long ingredientId);
+    @Modifying
+    @Query(value = "DELETE FROM shopping_lists_ingredients s WHERE s.shopping_lists_id = ?1 AND s.ingredients_id = ?2", nativeQuery = true)
+    void deleteRelationship(Long id, Long ingredientId);
 }
 
 

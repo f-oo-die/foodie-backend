@@ -12,8 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NutritionIssueDto {
-  private Long id;
-  private String name;
-  private Set<UserDto> users;
-  private Set<RecipeDto> recipes;
+    private Long id;
+    private String name;
+    private Set<UserDto> users;
+    private Set<RecipeDto> recipes;
 }

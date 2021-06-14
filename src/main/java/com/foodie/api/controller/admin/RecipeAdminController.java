@@ -16,48 +16,48 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecipeAdminController {
 
-  private final RecipeService service;
+    private final RecipeService service;
 
-  @GetMapping
-  public ResponseEntity<Collection<RecipeDto>> getAll(){
-    Collection<RecipeDto> allRecipes = service.getAll();
+    @GetMapping
+    public ResponseEntity<Collection<RecipeDto>> getAll() {
+        Collection<RecipeDto> allRecipes = service.getAll();
 
-    return ResponseEntity.status(HttpStatus.OK).body(allRecipes);
-  }
-  
-  @GetMapping("/{id}")
-  public ResponseEntity<RecipeDto> get(
-    @PathVariable Long id
-  ){
-    RecipeDto result = service.getRecipe(id);
+        return ResponseEntity.status(HttpStatus.OK).body(allRecipes);
+    }
 
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<RecipeDto> get(
+            @PathVariable Long id
+    ) {
+        RecipeDto result = service.getRecipe(id);
 
-  @PostMapping
-  public ResponseEntity<RecipeDto> save(
-    @RequestBody RecipeDto recipe
-  ){
-    RecipeDto result = service.save(recipe);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    @PostMapping
+    public ResponseEntity<RecipeDto> save(
+            @RequestBody RecipeDto recipe
+    ) {
+        RecipeDto result = service.save(recipe);
 
-  @PutMapping("/{id}")
-  public ResponseEntity<RecipeDto> update(
-    @PathVariable Long id,
-    @RequestBody RecipeDto recipe
-  ){
-    RecipeDto result = service.update(id, recipe);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+    @PutMapping("/{id}")
+    public ResponseEntity<RecipeDto> update(
+            @PathVariable Long id,
+            @RequestBody RecipeDto recipe
+    ) {
+        RecipeDto result = service.update(id, recipe);
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Object> delete(
-          @PathVariable Long id
-  ) {
-    service.delete(id);
-    return ResponseEntity.noContent().build();
-  }
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(
+            @PathVariable Long id
+    ) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

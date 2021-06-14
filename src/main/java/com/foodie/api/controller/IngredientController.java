@@ -19,20 +19,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class IngredientController {
 
-  private final IngredientService service;
+    private final IngredientService service;
 
-  @GetMapping
-  public ResponseEntity<Collection<IngredientDto>> getAll(){
-    Collection<IngredientDto> allIngredients = service.getAll();
+    @GetMapping
+    public ResponseEntity<Collection<IngredientDto>> getAll() {
+        Collection<IngredientDto> allIngredients = service.getAll();
 
-    return ResponseEntity.status(HttpStatus.OK).body(allIngredients);
-  }
-    
-  @GetMapping("/{id}")
-  public ResponseEntity<IngredientDto> get(
-    @PathVariable Long id
-  ){
-    IngredientDto result = service.getIngredient(id);
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
+        return ResponseEntity.status(HttpStatus.OK).body(allIngredients);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IngredientDto> get(
+            @PathVariable Long id
+    ) {
+        IngredientDto result = service.getIngredient(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

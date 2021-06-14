@@ -28,12 +28,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByEmail(email);
         User user = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user " +
-                "Found with email :" + email));
+                        "Found with email :" + email));
 
         return new org.springframework.security.
                 core.userdetails.User(user.getEmail(), user.getPassword(),
                 getAuthorities("USER"));
     }
+
     private Collection<? extends GrantedAuthority> getAuthorities(String role) {
         return singletonList(new SimpleGrantedAuthority(role));
     }

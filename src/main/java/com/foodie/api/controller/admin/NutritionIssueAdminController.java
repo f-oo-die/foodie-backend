@@ -19,12 +19,12 @@ public class NutritionIssueAdminController {
     private final NutritionIssueService service;
 
     @GetMapping
-    public ResponseEntity<Collection<NutritionIssueDto>> getAll(){
+    public ResponseEntity<Collection<NutritionIssueDto>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NutritionIssueDto> get(@PathVariable Long id){
+    public ResponseEntity<NutritionIssueDto> get(@PathVariable Long id) {
         NutritionIssueDto result = service.getNutritionIssue(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -32,7 +32,7 @@ public class NutritionIssueAdminController {
 
     @PostMapping
     public ResponseEntity<NutritionIssueDto> save(
-            @RequestBody NutritionIssueDto nutritionIssue){
+            @RequestBody NutritionIssueDto nutritionIssue) {
         return ResponseEntity.status(HttpStatus.OK).body(service.save(nutritionIssue));
     }
 
@@ -40,7 +40,7 @@ public class NutritionIssueAdminController {
     public ResponseEntity<NutritionIssueDto> update(
             @PathVariable Long id,
             @RequestBody NutritionIssueDto nutritionIssue
-    ){
+    ) {
         NutritionIssueDto result = service.update(id, nutritionIssue);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

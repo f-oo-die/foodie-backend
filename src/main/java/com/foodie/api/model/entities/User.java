@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User extends EntityWithLongId{
+public class User extends EntityWithLongId {
 
     @Column(name = "firstName", nullable = false)
     private String firstName;
@@ -36,7 +36,7 @@ public class User extends EntityWithLongId{
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
-    @Column(name= "userRole")
+    @Column(name = "userRole")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 

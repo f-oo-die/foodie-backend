@@ -12,9 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
-  private Long id;
-  private String comment;
-  private LocalDateTime datetime;
-  private UserDto user;
-  private RecipeDto recipe;
+    private Long id;
+    private String comment;
+    private LocalDateTime datetime;
+    private UserDto user;
+    private RecipeDto recipe;
 }

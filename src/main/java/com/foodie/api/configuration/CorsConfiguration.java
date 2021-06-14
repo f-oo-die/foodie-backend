@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class CorsConfiguration {
-  
-  @Bean
+
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override

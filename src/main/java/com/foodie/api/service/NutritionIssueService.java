@@ -19,27 +19,27 @@ public class NutritionIssueService {
 
     private final NutritionIssueRepository nutritionIssueRepository;
 
-    public Collection<NutritionIssueDto> getAll(){
+    public Collection<NutritionIssueDto> getAll() {
         return nutritionIssueRepository.findAll().stream()
                 .map(t -> toPayload(t))
                 .collect(Collectors.toList());
     }
 
-    public NutritionIssueDto getNutritionIssue(Long id){
+    public NutritionIssueDto getNutritionIssue(Long id) {
         Optional<NutritionIssue> nutritionIssue = nutritionIssueRepository.findById(id);
-        if (nutritionIssue.isPresent()){
+        if (nutritionIssue.isPresent()) {
             return toPayload(nutritionIssue.get());
         }
         throw new RuntimeException("Nutrition Issue with id " + id + " does not exist!");
     }
 
-    public NutritionIssueDto save(NutritionIssueDto payload){
+    public NutritionIssueDto save(NutritionIssueDto payload) {
         NutritionIssue nutritionIssue = fromPayload(payload);
         nutritionIssue = nutritionIssueRepository.save(nutritionIssue);
         return toPayload(nutritionIssue);
     }
 
-    public NutritionIssueDto update(Long id, NutritionIssueDto payload){
+    public NutritionIssueDto update(Long id, NutritionIssueDto payload) {
         getNutritionIssue(id);
 
         NutritionIssue nutritionIssue = fromPayload(payload);

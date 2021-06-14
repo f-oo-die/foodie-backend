@@ -23,41 +23,41 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommentController {
 
-  private final CommentService service;
+    private final CommentService service;
 
-  @GetMapping("/{recipeId}")
-  public ResponseEntity<Collection<CommentDto>> getAll(
-    @PathVariable Long recipeId
-  ){
-    Collection<CommentDto> allComments = service.getAll(recipeId);
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<Collection<CommentDto>> getAll(
+            @PathVariable Long recipeId
+    ) {
+        Collection<CommentDto> allComments = service.getAll(recipeId);
 
-    return ResponseEntity.status(HttpStatus.OK).body(allComments);
-  }
-    
-  @PostMapping("/{recipeId}")
-  public ResponseEntity<CommentDto> save(
-    @PathVariable Long recipeId,
-    @RequestBody CommentDto comment
-  ){
-    CommentDto result = service.save(recipeId, comment);
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
-
-  @PutMapping("/{recipeId}/{id}")
-  public ResponseEntity<CommentDto> update(
-      @PathVariable Long recipeId,
-      @PathVariable Long id,
-      @RequestBody CommentDto comment
-  ){
-      CommentDto result = service.update(recipeId, id, comment);
-      return ResponseEntity.status(HttpStatus.OK).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(allComments);
     }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Object> delete(
-      @PathVariable Long id
-   ) {
-      service.delete(id);
-      return ResponseEntity.noContent().build();
+    @PostMapping("/{recipeId}")
+    public ResponseEntity<CommentDto> save(
+            @PathVariable Long recipeId,
+            @RequestBody CommentDto comment
+    ) {
+        CommentDto result = service.save(recipeId, comment);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PutMapping("/{recipeId}/{id}")
+    public ResponseEntity<CommentDto> update(
+            @PathVariable Long recipeId,
+            @PathVariable Long id,
+            @RequestBody CommentDto comment
+    ) {
+        CommentDto result = service.update(recipeId, id, comment);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(
+            @PathVariable Long id
+    ) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

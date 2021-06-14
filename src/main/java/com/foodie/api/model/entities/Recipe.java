@@ -23,48 +23,48 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Recipe extends EntityWithLongId {
 
-  @Column(name = "title", nullable = false, unique = true)
-  private String title;
+    @Column(name = "title", nullable = false, unique = true)
+    private String title;
 
-  @Column(name = "preparation", nullable = false)
-  private String preparation;
+    @Column(name = "preparation", nullable = false)
+    private String preparation;
 
-  @Column(name = "num_of_calories", nullable = false)
-  private Integer numOfCalories;
+    @Column(name = "num_of_calories", nullable = false)
+    private Integer numOfCalories;
 
-  @Column(name = "type_of_meal", nullable = false)
-  private Integer typeOfMeal;
+    @Column(name = "type_of_meal", nullable = false)
+    private Integer typeOfMeal;
 
-  @Column(name = "calorie_status", nullable = false)
-  private Integer calorieStatus;
+    @Column(name = "calorie_status", nullable = false)
+    private Integer calorieStatus;
 
-  @Column(name = "prep_time", nullable = false)
-  private Integer preparationTime;
+    @Column(name = "prep_time", nullable = false)
+    private Integer preparationTime;
 
-  @Column(name = "thumbnail_image_url", nullable = false)
-  private String thumbnailImageUrl;
+    @Column(name = "thumbnail_image_url", nullable = false)
+    private String thumbnailImageUrl;
 
-  @Column(name = "main_image_url", nullable = false)
-  private String mainImageUrl;
+    @Column(name = "main_image_url", nullable = false)
+    private String mainImageUrl;
 
-  @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  private Set<IngredientList> ingredientList;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<IngredientList> ingredientList;
 
-  @Column(name = "count", nullable = false)
-  private Integer count;
+    @Column(name = "count", nullable = false)
+    private Integer count;
 
-  @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-  private Set<User> users;
+    @ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Set<User> users;
 
-  @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
-  private Set<DailyMealPlan> breakfastSet;
+    @OneToMany(mappedBy = "breakfast", fetch = FetchType.LAZY)
+    private Set<DailyMealPlan> breakfastSet;
 
-  @OneToMany(mappedBy = "lunch", fetch = FetchType.LAZY)
-  private Set<DailyMealPlan> lunchSet;
+    @OneToMany(mappedBy = "lunch", fetch = FetchType.LAZY)
+    private Set<DailyMealPlan> lunchSet;
 
-  @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
-  private Set<DailyMealPlan> dinnerSet;
+    @OneToMany(mappedBy = "dinner", fetch = FetchType.LAZY)
+    private Set<DailyMealPlan> dinnerSet;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-  private Set<NutritionIssue> nutritionIssues;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<NutritionIssue> nutritionIssues;
 }
