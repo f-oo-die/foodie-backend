@@ -31,7 +31,7 @@ public class JwtProvider {
 
     @PostConstruct
     public void init() {
-        try{
+        try {
             keyStore = KeyStore.getInstance("JKS");
             InputStream resourceAsStream = getClass().getResourceAsStream("/springblog.jks");
             keyStore.load(resourceAsStream, "secret".toCharArray());
@@ -40,7 +40,7 @@ public class JwtProvider {
         }
     }
 
-    public  String generateToken(Authentication authentication){
+    public String generateToken(Authentication authentication) {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(principal.getUsername())
@@ -48,33 +48,33 @@ public class JwtProvider {
                 .compact();
     }
 
-    private PrivateKey getPrivateKey(){
+    private PrivateKey getPrivateKey() {
         try {
             return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
-        } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e){
+        } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new SpringFoodieException("Exception occured while retrieving public key from keystore");
         }
     }
 
-    public boolean validateToken(String jwt){
+    public boolean validateToken(String jwt) {
         parserBuilder().setSigningKey(getPublicKey()).build().parseClaimsJws(jwt);
         return true;
     }
 
-    private PublicKey getPublicKey(){
-        try{
+    private PublicKey getPublicKey() {
+        try {
             return keyStore.getCertificate("springblog").getPublicKey();
         } catch (KeyStoreException e) {
             throw new SpringFoodieException("Exception occured while retrieving public keys");
         }
     }
 
-    public String getUsernameFromJwt(String token){
+    public String getUsernameFromJwt(String token) {
         Claims claims = parserBuilder()
-        .setSigningKey(getPublicKey())
-        .build()
-        .parseClaimsJws(token)
-        .getBody();
+                .setSigningKey(getPublicKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
 
         return claims.getSubject();
     }

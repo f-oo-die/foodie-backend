@@ -22,12 +22,12 @@ public class NutritionIssueController {
     private final NutritionIssueService service;
 
     @GetMapping
-    public ResponseEntity<Collection<NutritionIssueDto>> getAll(){
+    public ResponseEntity<Collection<NutritionIssueDto>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NutritionIssueDto> get(@PathVariable Long id){
+    public ResponseEntity<NutritionIssueDto> get(@PathVariable Long id) {
         NutritionIssueDto result = service.getNutritionIssue(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);

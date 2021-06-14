@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientDto{
+public class IngredientDto {
     private Long id;
     private String ingredientName;
     private Double caloricValue;

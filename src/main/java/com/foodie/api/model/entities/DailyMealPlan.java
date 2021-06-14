@@ -17,30 +17,30 @@ import lombok.Setter;
 
 @Entity
 @Table(
-    name = "daily_meal_plans"
-        )
+        name = "daily_meal_plans"
+)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DailyMealPlan extends EntityWithLongId {
 
-  @Column(name = "date", nullable = false)
-  private LocalDate date;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
 
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinColumn(name = "breakfast_id", referencedColumnName = "id")
-  private Recipe breakfast;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "breakfast_id", referencedColumnName = "id")
+    private Recipe breakfast;
 
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinColumn(name = "lunch_id", referencedColumnName = "id")
-  private Recipe lunch;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "lunch_id", referencedColumnName = "id")
+    private Recipe lunch;
 
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinColumn(name = "dinner_id", referencedColumnName = "id")
-  private Recipe dinner;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "dinner_id", referencedColumnName = "id")
+    private Recipe dinner;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
-  private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

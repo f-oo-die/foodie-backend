@@ -31,10 +31,10 @@ public class UserService {
     private String adminLastName;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         //environment variable -- cors prof. config
         Optional<User> user = userRepository.findByEmail(adminUsername);
-        if(!user.isPresent()){
+        if (!user.isPresent()) {
             User adminUser = new User();
             adminUser.setEmail(adminUsername);
             adminUser.setPassword(adminPassword);
@@ -48,13 +48,13 @@ public class UserService {
         }
     }
 
-    public UserDto getUser(Long id){
+    public UserDto getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) return toPayload(user.get());
         throw new RuntimeException("User with id " + id + " does not exist!");
     }
 
-    public UserDto update(Long id, UserDto payload){
+    public UserDto update(Long id, UserDto payload) {
         getUser(id);
 
         User user = fromPayload(payload);
@@ -63,23 +63,23 @@ public class UserService {
         return toPayload(user);
     }
 
-    public static User fromPayload(UserDto payload){
+    public static User fromPayload(UserDto payload) {
         User user = new User();
         if (payload.getId() != null) user.setId(payload.getId());
         user.setEmail(payload.getEmail());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
-        if(payload.getWeight() != null) user.setWeight(payload.getWeight());
-        if(payload.getHeight() != null) user.setHeight(payload.getHeight());
-        if(payload.getProfileImageUrl() != null) user.setProfileImageUrl(payload.getProfileImageUrl());
+        if (payload.getWeight() != null) user.setWeight(payload.getWeight());
+        if (payload.getHeight() != null) user.setHeight(payload.getHeight());
+        if (payload.getProfileImageUrl() != null) user.setProfileImageUrl(payload.getProfileImageUrl());
         user.setPassword(payload.getPassword());
         user.setHeight(payload.getHeight());
         user.setWeight(payload.getWeight());
         user.setProfileImageUrl(payload.getProfileImageUrl());
         user.setNutritionIssues(
-            payload.getNutritionIssues().stream()
-            .map((t) -> NutritionIssueService.fromPayload(t))
-            .collect(Collectors.toSet())
+                payload.getNutritionIssues().stream()
+                        .map((t) -> NutritionIssueService.fromPayload(t))
+                        .collect(Collectors.toSet())
         );
         return user;
     }
@@ -95,9 +95,9 @@ public class UserService {
         payload.setWeight(user.getWeight());
         payload.setProfileImageUrl(user.getProfileImageUrl());
         payload.setNutritionIssues(
-            user.getNutritionIssues().stream()
-            .map((t) -> NutritionIssueService.toPayload(t))
-            .collect(Collectors.toSet())
+                user.getNutritionIssues().stream()
+                        .map((t) -> NutritionIssueService.toPayload(t))
+                        .collect(Collectors.toSet())
         );
         return payload;
     }

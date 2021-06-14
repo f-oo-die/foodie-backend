@@ -39,15 +39,15 @@ public class ShoppingListService {
         return toPayload(dbShoppingList);
     }
 
-    public ShoppingListDto getShoppingList(Long userId, Long id){
+    public ShoppingListDto getShoppingList(Long userId, Long id) {
         Optional<ShoppingList> shoppingList = shoppingListRepo.findByIdAndUserId(userId, id);
-        if (shoppingList.isPresent()){
+        if (shoppingList.isPresent()) {
             return toPayload(shoppingList.get());
         }
         throw new RuntimeException("ShoppingList with id " + id + " does not exist!");
     }
 
-    public ShoppingListDto update (Long userId, Long id, ShoppingListDto payload){
+    public ShoppingListDto update(Long userId, Long id, ShoppingListDto payload) {
         getShoppingList(userId, id);
 
         ShoppingList shoppingList = fromPayload(payload);
@@ -64,7 +64,7 @@ public class ShoppingListService {
         }
         shoppingListRepo.deleteByUserIdAndId(userId, id);
     }
-    
+
 
     public static ShoppingList fromPayload(ShoppingListDto payload) {
         ShoppingList shoppingList = new ShoppingList();
@@ -77,7 +77,7 @@ public class ShoppingListService {
         return shoppingList;
     }
 
-    public static ShoppingListDto toPayload(ShoppingList shoppingList){
+    public static ShoppingListDto toPayload(ShoppingList shoppingList) {
         ShoppingListDto payload = new ShoppingListDto();
         payload.setId(shoppingList.getId());
         payload.setTitle(shoppingList.getTitle());

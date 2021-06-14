@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShoppingList extends EntityWithLongId{
+public class ShoppingList extends EntityWithLongId {
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -29,8 +29,8 @@ public class ShoppingList extends EntityWithLongId{
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER, 
-                cascade = { CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE})
     private Set<Ingredient> ingredients;
 
 }

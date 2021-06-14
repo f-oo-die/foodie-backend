@@ -12,10 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IngredientListDto {
-  private Long id;
-  private Double amount;
-  private String amountLabel;
-  private IngredientDto ingredient;
-  private RecipeDto recipe;
-  private Set<ShoppingListDto> shoppingLists;
+    private Long id;
+    private Double amount;
+    private String amountLabel;
+    private IngredientDto ingredient;
+    private RecipeDto recipe;
+    private Set<ShoppingListDto> shoppingLists;
 }

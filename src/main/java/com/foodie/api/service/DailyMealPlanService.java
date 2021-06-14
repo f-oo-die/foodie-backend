@@ -24,21 +24,21 @@ public class DailyMealPlanService {
     private final UserService userService;
     private final RecipeService recipeService;
 
-    public List<DailyMealPlanDto> getDailyMealPlanList(Long userId){
-        List<DailyMealPlan> dailyMealPlan= dailyMealPlanRepo.findDailyMealPlanofUser(userId);
+    public List<DailyMealPlanDto> getDailyMealPlanList(Long userId) {
+        List<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findDailyMealPlanofUser(userId);
         if (!dailyMealPlan.isEmpty()) dailyMealPlan.remove(0);
         return dailyMealPlan.stream().map(t -> toPayload(t)).collect(Collectors.toList());
     }
 
-    public DailyMealPlanDto getLatestDailyMealPlan(Long userId){
+    public DailyMealPlanDto getLatestDailyMealPlan(Long userId) {
         Optional<DailyMealPlan> dailyMealPlan = dailyMealPlanRepo.findLatestDailyMealPlanofUser(userId);
-        if (dailyMealPlan.isPresent()){
+        if (dailyMealPlan.isPresent()) {
             return toPayload(dailyMealPlan.get());
         }
         return null;
     }
 
-    public DailyMealPlanDto create(Long userId){
+    public DailyMealPlanDto create(Long userId) {
         UserDto user = userService.getUser(userId);
         DailyMealPlanDto dailyMealPlan = createDailyMealPlanService.createDailyMealPlan(user);
         dailyMealPlan = save(dailyMealPlan);
@@ -51,7 +51,7 @@ public class DailyMealPlanService {
         return toPayload(dailyMealPlan);
     }
 
-    private DailyMealPlan fromPayload(DailyMealPlanDto payload){
+    private DailyMealPlan fromPayload(DailyMealPlanDto payload) {
         DailyMealPlan dailyMealPlan = new DailyMealPlan();
         dailyMealPlan.setDate(LocalDate.now());
         dailyMealPlan.setUser(UserService.fromPayload(payload.getUser()));
@@ -61,7 +61,7 @@ public class DailyMealPlanService {
         return dailyMealPlan;
     }
 
-    public static DailyMealPlanDto toPayload(DailyMealPlan dailyMealPlan){
+    public static DailyMealPlanDto toPayload(DailyMealPlan dailyMealPlan) {
         DailyMealPlanDto payload = new DailyMealPlanDto();
         payload.setId(dailyMealPlan.getId());
         payload.setDate(dailyMealPlan.getDate());

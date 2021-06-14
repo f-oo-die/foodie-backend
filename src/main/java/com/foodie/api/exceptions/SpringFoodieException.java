@@ -1,7 +1,7 @@
 package com.foodie.api.exceptions;
 
-public class SpringFoodieException extends RuntimeException{
-    public SpringFoodieException(String exMessage, Exception exception){
+public class SpringFoodieException extends RuntimeException {
+    public SpringFoodieException(String exMessage, Exception exception) {
         super(exMessage, exception);
     }
 

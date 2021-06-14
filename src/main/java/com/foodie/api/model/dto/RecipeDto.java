@@ -12,17 +12,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeDto {
-  private Long id;
-  private String title;
-  private String preparation;
-  private Integer numOfCalories;
-  private Integer typeOfMeal;
-  private Integer calorieStatus;
-  private Integer preparationTime;
-  private Integer count;
-  private String thumbnailImageUrl;
-  private String mainImageUrl;
-  private Set<IngredientListDto> ingredientList;
-  private Set<NutritionIssueDto> nutritionIssues;
-  private Set<DailyMealPlanDto> dailyMealPlan;
+    private Long id;
+    private String title;
+    private String preparation;
+    private Integer numOfCalories;
+    private Integer typeOfMeal;
+    private Integer calorieStatus;
+    private Integer preparationTime;
+    private Integer count;
+    private String thumbnailImageUrl;
+    private String mainImageUrl;
+    private Set<IngredientListDto> ingredientList;
+    private Set<NutritionIssueDto> nutritionIssues;
+    private Set<DailyMealPlanDto> dailyMealPlan;
 }
