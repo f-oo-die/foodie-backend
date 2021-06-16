@@ -26,7 +26,7 @@ public class Recipe extends EntityWithLongId {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @Column(name = "preparation", nullable = false)
+    @Column(name = "preparation", nullable = false, columnDefinition = "longtext")
     private String preparation;
 
     @Column(name = "num_of_calories", nullable = false)
